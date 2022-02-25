@@ -1,9 +1,9 @@
-import { readFileSync } from 'fs';
-import { HttpRequest } from '@aws-sdk/protocol-http';
-const { defaultProvider } = require('@aws-sdk/credential-provider-node');
-import { SignatureV4 } from '@aws-sdk/signature-v4';
-import { NodeHttpHandler } from '@aws-sdk/node-http-handler';
-import { Sha256 } from '@aws-crypto/sha256-browser';
+const { readFileSync } = require('fs');
+const { HttpRequest} = require("@aws-sdk/protocol-http");
+const { defaultProvider } = require("@aws-sdk/credential-provider-node");
+const { SignatureV4 } = require("@aws-sdk/signature-v4");
+const { NodeHttpHandler } = require("@aws-sdk/node-http-handler");
+const { Sha256 } = require("@aws-crypto/sha256-browser");
 
 var region = 'us-east-1';
 var domain = 'search-catalog-db-kzo4u3d3hywf53mehgc2zvdhku.us-east-1.es.amazonaws.com';
