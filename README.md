@@ -18,7 +18,7 @@ node load-db.js
 
 Searching for products:
 ```bash
-node -e 'require("./search-products.js").handler({"body":"{\"text\":\"RGB water asdf Intel\"}"})'
+node -e 'require("./catalog/search-products.js").handler({"body":"{\"text\":\"RGB water asdf Intel\"}"})'
 ```
 
 Get cart:
@@ -35,4 +35,9 @@ curl 'https://7pz60grmkj.execute-api.us-east-1.amazonaws.com/test/cart' -H 'Auth
 Add to cart:
 ```bash
 curl -X POST 'https://7pz60grmkj.execute-api.us-east-1.amazonaws.com/test/cart' -d '{"product":{"id":"2","name":"another name","description":"another description","image_url":"another url","price":124}}' -H 'Content-type: application/json' -H 'Authorization: <ID_TOKEN>'
+```
+
+Searching for products:
+```bash
+curl -X POST 'https://7pz60grmkj.execute-api.us-east-1.amazonaws.com/test/catalog/search' -H 'Content-type: application/json' -d '{"text":"RGB water asdf Intel"}'
 ```

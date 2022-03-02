@@ -1,24 +1,21 @@
-const { HttpRequest} = require("@aws-sdk/protocol-http");
-const { defaultProvider } = require("@aws-sdk/credential-provider-node");
-const { SignatureV4 } = require("@aws-sdk/signature-v4");
-const { NodeHttpHandler } = require("@aws-sdk/node-http-handler");
-const { Sha256 } = require("@aws-crypto/sha256-browser");
+var AWS = require('aws-sdk');
 
-var region = 'us-east-1';
-var domain = 'search-catalog-db-kzo4u3d3hywf53mehgc2zvdhku.us-east-1.es.amazonaws.com';
+const region = 'us-east-1';
+const domain = 'search-catalog-db-kzo4u3d3hywf53mehgc2zvdhku.us-east-1.es.amazonaws.com';
 const index = 'products';
 
-exports.handler = async (event, context) => {
-    const requestBody = JSON.parse(event.body);
+exports.handler = (event, context, callback) => {
+    var requestBody = JSON.parse(event.body);
 
-    console.log('Received search event: ', requestBody.text);
+    console.log(`Received SearchProducts request: ${requestBody.text}`);
 
-    /* Multi match is used to search multiple fields.
-       The ^ lets you “boost” certain fields. Boosts are multipliers that weigh matches in one field
-       more heavily than matches in other fields.
-       TODO: find out about analyzers (they allow us to split sentence into words, filter words out, use synonyms...) */
-    const query = {
-        'size': 25,
+    /**
+     * Multi match is used to search multiple fields.
+     * The ^ lets you “boost” certain fields. Boosts are multipliers that
+     * weigh matches in one field more heavily than matches in other fields.
+    */
+    var query = {
+        'size': 15,
         'query': {
             'multi_match': {
                 'query': requestBody.text,
@@ -27,38 +24,70 @@ exports.handler = async (event, context) => {
         }
     };
 
-    var request = new HttpRequest({
-        body: JSON.stringify(query),
+    queryOpenSearch(query).then((response) => {
+        callback(null, {
+            statusCode: response.statusCode,
+            body: JSON.stringify(response.body),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+            },
+        });
+    }).catch((err) => {
+        console.error(err);
+        errorResponse(err.message, context.awsRequestId, callback)
+    });
+}
+
+function queryOpenSearch(query) {
+    var endpoint = new AWS.Endpoint(domain);
+    var request = new AWS.HttpRequest(endpoint, region);
+
+    request.method = 'POST';
+    request.path += index + '/_search';
+    request.body = JSON.stringify(query);
+    request.headers['host'] = domain;
+    request.headers['Content-Type'] = 'application/json';
+    request.headers['Content-Length'] = Buffer.byteLength(request.body);
+
+    var credentials = new AWS.EnvironmentCredentials('AWS');
+    var signer = new AWS.Signers.V4(request, 'es');
+    signer.addAuthorization(credentials, new Date());
+
+    var client = new AWS.HttpClient();
+    return new Promise((resolve, reject) => {
+        client.handleRequest(
+            request,
+            null,
+            (response) => {
+                const {statusCode, statusMessage, headers} = response;
+                let body = '';
+                response.on('data', (chunk) => {
+                    body += chunk;
+                });
+                response.on('end', () => {
+                    const data = {statusCode, statusMessage, headers};
+                    if (body) {
+                        data.body = body;
+                    }
+                    resolve(data);
+                });
+            },
+            (error) => {
+                reject(error);
+            }
+        );
+    })
+}
+
+function errorResponse(errorMessage, awsRequestId, callback) {
+    callback(null, {
+        statusCode: 500,
+        body: JSON.stringify({
+            Error: errorMessage,
+            Reference: awsRequestId,
+        }),
         headers: {
-            'Content-Type': 'application/json',
-            'host': domain
+            'Access-Control-Allow-Origin': '*',
         },
-        hostname: domain,
-        method: 'POST',
-        path: index + '/_search'
-    });
-
-    var signer = new SignatureV4({
-        credentials: defaultProvider(),
-        region: region,
-        service: 'es',
-        sha256: Sha256
-    });
-
-    var signedRequest = await signer.sign(request);
-
-    var client = new NodeHttpHandler();
-    var { response } =  await client.handle(signedRequest)
-    console.log(response.statusCode + ' ' + response.body.statusMessage);
-    var responseBody = '';
-    await new Promise(() => {
-        response.body.on('data', (chunk) => {
-            responseBody += chunk;
-        });
-        response.body.on('end', () => {
-            console.log('Response body: ' + responseBody);
-        });
-    }).catch((error) => {
-        console.log('Error: ' + error);
     });
 }
