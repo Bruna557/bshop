@@ -12,16 +12,13 @@ exports.handler = (event, context, callback) => {
     }
 
     var user = event.requestContext.authorizer.claims['cognito:username'];
-    // var requestBody = JSON.parse(event.body);  // for local testing
-    // var user = requestBody.user;  // for local testing
+    var requestBody = JSON.parse(event.body);
 
-    console.log(`Received GetCart request: user ${user}`);
+    console.log(`Received AddToCart request: user ${user}, product ${requestBody.product.id}`);
 
-    getCart(user).then((response) => {
-        // console.log(response);  // for local testing
+    addToCart(user, requestBody.product).then(() => {
         callback(null, {
-            statusCode: 200,
-            body: JSON.stringify(response),
+            statusCode: 201,
             headers: {
                 'Access-Control-Allow-Origin': '*',
             },
@@ -32,10 +29,19 @@ exports.handler = (event, context, callback) => {
     });
 }
 
-function getCart(user) {
-    return db.get({
+function addToCart(user, product) {
+    return db.update({
         TableName: 'Cart',
-        Key: { id: user }
+        Key: { id: user },
+        ReturnValues: 'ALL_NEW',
+        UpdateExpression: 'set #products = list_append(if_not_exists(#products, :empty_list), :product)',
+        ExpressionAttributeNames: {
+            '#products': 'products'
+        },
+        ExpressionAttributeValues: {
+            ':product': [product],
+            ':empty_list': []
+        }
     }).promise();
 }
 
