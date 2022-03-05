@@ -1,94 +1,9 @@
 {
-    "resource": "/cart",
-    "path": "/cart",
-    "httpMethod": "GET",
-    "headers": {
-        "accept": "*/*",
-        "Authorization": "",
-        "Host": "7pz60grmkj.execute-api.us-east-1.amazonaws.com",
-        "User-Agent": "curl/7.75.0",
-        "X-Amzn-Trace-Id": "Root=1-621faed7-11d33da86b2bae8067ad1b8c",
-        "X-Forwarded-For": "189.6.235.128",
-        "X-Forwarded-Port": "443",
-        "X-Forwarded-Proto": "https"
-    },
-    "multiValueHeaders": {
-        "accept": [
-            "*/*"
-        ],
-        "Authorization": [
-            ""
-        ],
-        "Host": [
-            "7pz60grmkj.execute-api.us-east-1.amazonaws.com"
-        ],
-        "User-Agent": [
-            "curl/7.75.0"
-        ],
-        "X-Amzn-Trace-Id": [
-            "Root=1-621faed7-11d33da86b2bae8067ad1b8c"
-        ],
-        "X-Forwarded-For": [
-            "189.6.235.128"
-        ],
-        "X-Forwarded-Port": [
-            "443"
-        ],
-        "X-Forwarded-Proto": [
-            "https"
-        ]
-    },
-    "queryStringParameters": null,
-    "multiValueQueryStringParameters": null,
-    "pathParameters": null,
-    "stageVariables": null,
     "requestContext": {
-        "resourceId": "k7w3s3",
         "authorizer": {
             "claims": {
-                "sub": "7915fa14-7b63-42e8-ae53-efdc7c69873c",
-                "email_verified": "false",
-                "iss": "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_VFQMeycgA",
-                "cognito:username": "bruna@gmail.com",
-                "origin_jti": "ee350107-d072-46df-b3b0-3b694d3e674f",
-                "aud": "30vuuve6lcj5568gr979v32f7",
-                "event_id": "39929da0-0394-4889-bc69-da1bc7f3bf3b",
-                "token_use": "id",
-                "auth_time": "1646241476",
-                "exp": "Wed Mar 02 18:17:56 UTC 2022",
-                "iat": "Wed Mar 02 17:17:56 UTC 2022",
-                "jti": "cfcd3a7c-6dbf-4e28-893b-cabda759c1ca",
-                "email": "bruna@gmail.com"
+                "cognito:username": "bruna@gmail.com"
             }
-        },
-        "resourcePath": "/cart",
-        "httpMethod": "GET",
-        "extendedRequestId": "OXhBxEBnIAMFVAg=",
-        "requestTime": "02/Mar/2022:17:52:23 +0000",
-        "path": "/test/cart",
-        "accountId": "917829354126",
-        "protocol": "HTTP/1.1",
-        "stage": "test",
-        "domainPrefix": "7pz60grmkj",
-        "requestTimeEpoch": 1646243543910,
-        "requestId": "1a56b0ef-7fe7-4eb7-8634-752b98742df1",
-        "identity": {
-            "cognitoIdentityPoolId": null,
-            "accountId": null,
-            "cognitoIdentityId": null,
-            "caller": null,
-            "sourceIp": "189.6.235.128",
-            "principalOrgId": null,
-            "accessKey": null,
-            "cognitoAuthenticationType": null,
-            "cognitoAuthenticationProvider": null,
-            "userArn": null,
-            "userAgent": "curl/7.75.0",
-            "user": null
-        },
-        "domainName": "7pz60grmkj.execute-api.us-east-1.amazonaws.com",
-        "apiId": "7pz60grmkj"
-    },
-    "body": null,
-    "isBase64Encoded": false
+        }
+    }
 }
