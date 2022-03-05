@@ -1,9 +1,8 @@
-const AWS = require('aws-sdk');
+const { DynamoDB, GetItemCommand } = require('@aws-sdk/client-dynamodb');
+const { unmarshall } = require("@aws-sdk/util-dynamodb");
 
-AWS.config.update({
-    region: 'us-east-1'
-});
-var db = new AWS.DynamoDB.DocumentClient();
+const region = 'us-east-1';
+const db = new DynamoDB({ 'region': region });
 
 exports.handler = (event, context, callback) => {
     if (!event.requestContext.authorizer) {
@@ -12,19 +11,14 @@ exports.handler = (event, context, callback) => {
     }
 
     var user = event.requestContext.authorizer.claims['cognito:username'];
-    // var requestBody = JSON.parse(event.body);  // for local testing
-    // var user = requestBody.user;  // for local testing
 
     console.log(`Received GetCart request: user ${user}`);
 
     getCart(user).then((response) => {
-        // console.log(response);  // for local testing
         callback(null, {
-            statusCode: 200,
-            body: JSON.stringify(response),
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-            },
+            statusCode: response.$metadata.httpStatusCode,
+            body: JSON.stringify(unmarshall(response.Item)),
+            headers:  { 'Access-Control-Allow-Origin': '*' }
         });
     }).catch((err) => {
         console.error(err);
@@ -33,10 +27,13 @@ exports.handler = (event, context, callback) => {
 }
 
 function getCart(user) {
-    return db.get({
+    var params = {
         TableName: 'Cart',
-        Key: { id: user }
-    }).promise();
+        Key: {
+            id: { S: user }
+        }
+    }
+    return db.send(new GetItemCommand(params));
 }
 
 function errorResponse(errorMessage, awsRequestId, callback) {
@@ -46,8 +43,6 @@ function errorResponse(errorMessage, awsRequestId, callback) {
             Error: errorMessage,
             Reference: awsRequestId,
         }),
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-        },
+        headers: { 'Access-Control-Allow-Origin': '*' }
     });
 }

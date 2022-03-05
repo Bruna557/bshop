@@ -1,0 +1,11 @@
+{
+  "name": "add-to-cart",
+  "version": "1.0.0",
+  "description": "Add product to user's shopping cart.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
