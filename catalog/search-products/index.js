@@ -14,6 +14,8 @@ exports.handler = (event, context, callback) => {
     var page = event.queryStringParameters.page || 1;
     var q = event.queryStringParameters.q;
 
+    console.log(`Received SearchProducts request: q ${q}`);
+
     /**
      * Multi match is used to search multiple fields.
      * The ^ lets you “boost” certain fields. Boosts are multipliers that

@@ -9,6 +9,8 @@ const domain = 'search-catalog-db-kzo4u3d3hywf53mehgc2zvdhku.us-east-1.es.amazon
 const index = 'products';
 
 exports.handler = (event, context, callback) => {
+    console.log(`Received GetProducts request`);
+
     var size = event.queryStringParameters.size || 15;
     var page = event.queryStringParameters.page || 1;
 

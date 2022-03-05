@@ -1,8 +1,8 @@
 {
-  "name": "catalog",
+  "name": "search-products",
   "version": "1.0.0",
-  "description": "Catalog service",
-  "main": "get-products.js",
+  "description": "Perform full-text search on CatalogDB including fields 'name' and 'description'.",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

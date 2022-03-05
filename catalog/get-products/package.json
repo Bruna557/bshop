@@ -1,8 +1,8 @@
 {
-  "name": "catalog",
+  "name": "get-products",
   "version": "1.0.0",
-  "description": "Catalog service",
-  "main": "get-products.js",
+  "description": "Get products from CatalogDB.",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
