@@ -1,0 +1,11 @@
+.content {
+    padding: 20px 50px;
+    margin-top: 67px;
+    height: calc(100% - 67px);
+    overflow-y: auto;
+}
+
+.content h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}

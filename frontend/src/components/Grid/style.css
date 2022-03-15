@@ -1,0 +1,14 @@
+.card .card-title {
+    text-align: center;
+    margin-top: 8px;
+    font-weight: bold;
+}
+
+.card-body {
+    text-align: center;
+}
+
+.card-text {
+    font-size: 18px;
+    font-weight: bold;
+}
