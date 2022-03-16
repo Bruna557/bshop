@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Navbar, Container, NavDropdown, Nav, Form, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faSearch, faUser } from "@fortawesome/free-solid-svg-icons";
@@ -12,9 +13,9 @@ const Navigation = () => {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="/">
+                        <Link to="/">
                             <img src="./assets/logo-name.png" alt="logo-name"></img>
-                        </Nav.Link>
+                        </Link>
                     </Nav>
                     <Nav className="mx-auto">
                         <Form className="d-flex">
@@ -29,9 +30,9 @@ const Navigation = () => {
                             <NavDropdown.Item>English</NavDropdown.Item>
                             <NavDropdown.Item>Português</NavDropdown.Item>
                         </NavDropdown>
-                        <Nav.Link href="/cart">
+                        <Link to="/cart">
                             <FontAwesomeIcon icon={faShoppingCart} size="lg" />
-                        </Nav.Link>
+                        </Link>
                         <NavDropdown title={<FontAwesomeIcon icon={faUser} size="lg" />} id="account">
                             <NavDropdown.Item>bruna@gmail.com</NavDropdown.Item>
                             <NavDropdown.Item>Sign out</NavDropdown.Item>

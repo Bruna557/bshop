@@ -21,8 +21,15 @@ export const search = () => {
     return dummyCatalog.slice(0, 5);
 }
 
+export const getCart = () => {
+    console.log("returning cart with " + cart.length + " products")
+    return cart;
+}
+
 export const addToCart = (product) => {
+    console.log("product added to cart: " + product.name)
     cart.push(product);
+    console.log("now there are " + cart.length + " products in the cart")
 }
 
 export const removeFromCart = (key) => {

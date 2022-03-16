@@ -1,18 +1,24 @@
 import { useDispatch } from "react-redux";
 
 import { update } from "../../store/productSlice";
-import { getProducts } from "../../api";
+import { getProducts, addToCart } from "../../api";
 
 import Grid from "../../components/Grid";
 
+const products = getProducts();
+
+function addToCartFunc(productId) {
+    addToCart(products[productId]);
+    alert(`${products[productId].name} added to cart!`);
+}
+
 const Home = () => {
-    const products = getProducts();
-    const dispatch = useDispatch()
-    dispatch(update(products))
+    const dispatch = useDispatch();
+    dispatch(update(products));
 
     return (
         <>
-            <Grid />
+            <Grid addToCart={addToCartFunc}/>
         </>
     );
 }

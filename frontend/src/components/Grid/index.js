@@ -8,7 +8,7 @@ import Rating from "../Rating";
 
 import "./style.css";
 
-const Grid = () => {
+const Grid = (props) => {
     const products = useSelector((state) => state.products.value);
 
     return (
@@ -22,7 +22,7 @@ const Grid = () => {
                             <Card.Text>${product.price}</Card.Text>
                             <Rating rating={product.rating} />
                             <div className="footer">
-                                <Button variant="success">
+                                <Button variant="success" onClick={() => props.addToCart(id)}>
                                     <FontAwesomeIcon icon={faCartPlus} size="lg" />
                                 </Button>
                                 <Link to={`/product/${id}`}><Button variant="primary">See more</Button></Link>
