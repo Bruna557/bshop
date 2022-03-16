@@ -1,12 +1,18 @@
-import Grid from "../../components/Grid";
+import { useDispatch } from "react-redux";
 
+import { update } from "../../store/productSlice";
 import { getProducts } from "../../api";
 
+import Grid from "../../components/Grid";
+
 const Home = () => {
+    const products = getProducts();
+    const dispatch = useDispatch()
+    dispatch(update(products))
+
     return (
         <>
-            <h1>Catalog</h1>
-            <Grid products={getProducts()} />
+            <Grid />
         </>
     );
 }
