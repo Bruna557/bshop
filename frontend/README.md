@@ -10,9 +10,10 @@
 - [ ] Implement recommendation component
 - [ ] Implement localization
 - [ ] Fix navbar spacing
-- [ ] Fix navbar dropdown clip
+- [x] Fix navbar dropdown clip
 - [ ] Fix navbar icon sizes
 - [ ] Make navbar responsive
 - [ ] Make grid responsive
 - [ ] Fix grid image sizes
+- [ ] Fix cart page: don't repeat product if multiple
 - [ ] Implement API

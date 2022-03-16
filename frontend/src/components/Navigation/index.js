@@ -30,11 +30,10 @@ const Navigation = () => {
                             <NavDropdown.Item>English</NavDropdown.Item>
                             <NavDropdown.Item>Português</NavDropdown.Item>
                         </NavDropdown>
-                        <Link to="/cart">
+                        <Link to="/cart" id="cart">
                             <FontAwesomeIcon icon={faShoppingCart} size="lg" />
                         </Link>
-                        <NavDropdown title={<FontAwesomeIcon icon={faUser} size="lg" />} id="account">
-                            <NavDropdown.Item>bruna@gmail.com</NavDropdown.Item>
+                        <NavDropdown title={<FontAwesomeIcon icon={faUser} size="lg" />} id="account" align="end">
                             <NavDropdown.Item>Sign out</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>

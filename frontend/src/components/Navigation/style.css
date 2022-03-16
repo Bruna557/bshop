@@ -2,7 +2,7 @@
     height: 67px;
 }
 
-.navbar a {
+.navbar a#cart {
     color: rgba(255,255,255,.55);
     display: block;
     padding: .5rem 1rem;
