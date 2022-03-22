@@ -11,14 +11,31 @@ const dummyCatalog = [
     {"name":"Office Chair RD2D","description":"Ergonomic office chair with adjustable height and lumbar support.","image_url":"https://images.unsplash.com/photo-1580480095047-4aa43ab3bd1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80","price":"191.66","rating":4.0,"number_of_reviews":412}
 ]
 
+const en = {
+    "search": "Search",
+    "catalog": "Catalog",
+    "search_result": "Search result",
+    "see_more": "See more",
+    "sign_out": "Sign out",
+}
+
+const pt = {
+    "search": "Pesquisar",
+    "catalog": "Catálogo",
+    "search_result": "Resultado da pesquisa",
+    "see_more": "Ver mais",
+    "sign_out": "Sair",
+}
+
 let cart = [];
 
 export const getProducts = () => {
     return dummyCatalog;
 }
 
-export const search = () => {
-    return dummyCatalog.slice(0, 5);
+export const search = (q) => {
+    console.log("search: " + q);
+    return dummyCatalog.slice(4, 8);
 }
 
 export const getCart = () => {
@@ -34,4 +51,8 @@ export const addToCart = (product) => {
 
 export const removeFromCart = (key) => {
     cart.splice(key, 1); // 2nd parameter means remove one item only
+}
+
+export const getCopy = (language) => {
+    return language === "pt" ? pt : en;
 }

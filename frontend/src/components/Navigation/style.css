@@ -9,6 +9,10 @@
     text-decoration: none;
 }
 
+.navbar #language img {
+    width: 24px;
+}
+
 .bshop-name {
     padding-left: 10px;
     font-size: 18px;

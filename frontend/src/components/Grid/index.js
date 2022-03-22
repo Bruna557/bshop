@@ -10,6 +10,7 @@ import "./style.css";
 
 const Grid = (props) => {
     const products = useSelector((state) => state.products.value);
+    const copy = useSelector((state) => state.localization.copy);
 
     return (
         <Row xs={1} md={4} className="g-4">
@@ -25,7 +26,7 @@ const Grid = (props) => {
                                 <Button variant="success" onClick={() => props.addToCart(id)}>
                                     <FontAwesomeIcon icon={faCartPlus} size="lg" />
                                 </Button>
-                                <Link to={`/product/${id}`}><Button variant="primary">See more</Button></Link>
+                                <Link to={`/product/${id}`}><Button variant="primary">{copy.see_more}</Button></Link>
                             </div>
                         </Card.Body>
                     </Card>
