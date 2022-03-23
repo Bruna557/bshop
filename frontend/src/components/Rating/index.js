@@ -10,11 +10,11 @@ const Rating = (props) => {
     var emptyStars = 5 - solidStars - (halfStar ? 1 : 0);
 
     return (
-        <>
+        <div className="stars">
             { [...Array(parseInt(solidStars))].map((_, key) => <span key={key}><FontAwesomeIcon icon={faStar} /></span>) }
             { halfStar &&  <span><FontAwesomeIcon icon={faStarHalfStroke} /></span> }
             { [...Array(emptyStars)].map((_, key) => <span key={key}><FontAwesomeIcon icon={emptyStar} /></span>) }
-        </>
+        </div>
     );
 }
 

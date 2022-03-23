@@ -1,0 +1,35 @@
+.cart-item {
+    padding: 25px;
+}
+
+.cart-item .item-name {
+    font-size: 18px;
+}
+
+.cart-item .btn {
+    padding: 1px 6px;
+}
+
+.cart-summary {
+    font-size: 16px;
+}
+
+.price {
+    display: flex;
+    justify-content: space-between;
+}
+
+.price span {
+    margin-bottom: 5px;
+}
+
+.total {
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+}
+
+.buy-btn {
+    margin-top: 25px;
+}

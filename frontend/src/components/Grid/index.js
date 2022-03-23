@@ -1,6 +1,6 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, Card, Col, Row } from "react-bootstrap";
-import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 
@@ -17,7 +17,7 @@ const Grid = (props) => {
             {products.map((product, id) => (
                 <Col key={id}>
                     <Card>
-                        <Card.Img variant="top" src={product.image_url} />
+                        <Card.Img variant="top" src={product.image_url} alt="product" />
                         <Card.Title>{product.name}</Card.Title>
                         <Card.Body>
                             <Card.Text>${product.price}</Card.Text>

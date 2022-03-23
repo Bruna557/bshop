@@ -14,17 +14,35 @@ const dummyCatalog = [
 const en = {
     "search": "Search",
     "catalog": "Catalog",
+    "cart": "Shopping Cart",
+    "added_to_cart": "added to cart!",
+    "cart_empty": "Your shopping cart is empty",
+    "order_summary": "Order Summary",
     "search_result": "Search result",
     "see_more": "See more",
     "sign_out": "Sign out",
+    "buy": "Checkout",
+    "price": "Price",
+    "discount": "Discount",
+    "shipping": "Shipping",
+    "total": "Total",
 }
 
 const pt = {
     "search": "Pesquisar",
     "catalog": "Catálogo",
+    "cart": "Carrinho de Compras",
+    "added_to_cart": "adicionado ao carrinho!",
+    "cart_empty": "Seu carrinho de compras está vazio",
+    "order_summary": "Resumo da Compra",
     "search_result": "Resultado da pesquisa",
     "see_more": "Ver mais",
     "sign_out": "Sair",
+    "buy": "Comprar",
+    "price": "Preço",
+    "discount": "Desconto",
+    "shipping": "Envio",
+    "total": "Total",
 }
 
 let cart = [];
@@ -34,19 +52,15 @@ export const getProducts = () => {
 }
 
 export const search = (q) => {
-    console.log("search: " + q);
     return dummyCatalog.slice(4, 8);
 }
 
 export const getCart = () => {
-    console.log("returning cart with " + cart.length + " products")
     return cart;
 }
 
 export const addToCart = (product) => {
-    console.log("product added to cart: " + product.name)
     cart.push(product);
-    console.log("now there are " + cart.length + " products in the cart")
 }
 
 export const removeFromCart = (key) => {
