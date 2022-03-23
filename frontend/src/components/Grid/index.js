@@ -2,14 +2,15 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 import Rating from "../Rating";
+import { addToCartFunc } from "../../utils";
 
 import "./style.css";
 
-const Grid = (props) => {
-    const products = useSelector((state) => state.products.value);
+const Grid = () => {
+    const products = useSelector((state) => state.product.productList);
     const copy = useSelector((state) => state.localization.copy);
 
     return (
@@ -23,8 +24,8 @@ const Grid = (props) => {
                             <Card.Text>${product.price}</Card.Text>
                             <Rating rating={product.rating} />
                             <div className="footer">
-                                <Button variant="success" onClick={() => props.addToCart(id)}>
-                                    <FontAwesomeIcon icon={faCartPlus} size="lg" />
+                                <Button variant="success" onClick={() => addToCartFunc(product, copy.added_to_cart)}>
+                                    <FontAwesomeIcon icon={faShoppingCart} size="lg" />
                                 </Button>
                                 <Link to={`/product/${id}`}><Button variant="primary">{copy.see_more}</Button></Link>
                             </div>

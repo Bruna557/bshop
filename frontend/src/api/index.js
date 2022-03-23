@@ -21,7 +21,7 @@ const en = {
     "search_result": "Search result",
     "see_more": "See more",
     "sign_out": "Sign out",
-    "buy": "Checkout",
+    "buy": "Buy",
     "price": "Price",
     "discount": "Discount",
     "shipping": "Shipping",

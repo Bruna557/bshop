@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faSearch, faUser } from "@fortawesome/free-solid-svg-icons";
 
 import { search } from "../../api";
-import { update } from "../../store/productSlice";
+import { updateList } from "../../store/productSlice";
 import { changeLanguage } from "../../store/localizationSlice";
 
 import "./style.css";
@@ -20,7 +20,7 @@ const Navigation = () => {
     const handleSubmit = (event) => {
         event.preventDefault();  // prevent refresh
         var result = search(q);
-        dispatch(update(result));
+        dispatch(updateList(result));
     }
 
     return (
@@ -43,7 +43,7 @@ const Navigation = () => {
                         </Form>
                     </Nav>
                     <Nav className="ms-auto">
-                        <NavDropdown title={<img src={`./assets/${language}-icon.png`} alt="language-flag"></img>} id="language">
+                        <NavDropdown title={<img src={`./assets/${language}-icon.png`} alt=""></img>} id="language">
                             <NavDropdown.Item onClick={() => dispatch(changeLanguage("en"))}>English</NavDropdown.Item>
                             <NavDropdown.Item onClick={() => dispatch(changeLanguage("pt"))}>Português</NavDropdown.Item>
                         </NavDropdown>

@@ -5,7 +5,7 @@ import localizationReducer from "./localizationSlice";
 
 export default configureStore({
     reducer: {
-        products: productReducer,
+        product: productReducer,
         localization: localizationReducer,
     },
 });

@@ -4,11 +4,13 @@
 - [x] Implement navigation component
 - [x] Implement rating component
 - [x] Mock API
-- [ ] Implement product detail page
+- [x] Implement product detail page
 - [x] Implement cart page
 - [ ] Implement login page
 - [ ] Implement recommendation component
 - [x] Implement localization
+- [ ] Implement search
+- [ ] Implement pagination
 - [ ] Fix navbar spacing
 - [x] Fix navbar dropdown clip
 - [ ] Fix navbar icon sizes

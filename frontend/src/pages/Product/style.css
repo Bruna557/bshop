@@ -1,0 +1,20 @@
+.product-detail {
+    font-size: 16px;
+}
+
+.product-detail img {
+    width: 300px;
+}
+
+.product-detail .stars {
+    margin-top: 15px;
+}
+
+.product-detail .price {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.product-detail .btn {
+    margin: 20px 20px 0 0;
+}
