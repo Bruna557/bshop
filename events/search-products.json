@@ -1,5 +1,7 @@
 {
     "queryStringParameters": {
-        "q": "RGB water asdf Intel"
+        "q": "RGB water asdf Intel",
+        "size": 15,
+        "page": 1
     }
 }
