@@ -23,9 +23,9 @@ Endpoint            | HTTP method | Description
 --------------------|-------------| -----------
 catalog/            | GET         | Get products (query params `q`, `size` and `page`)
 cart/               | GET         | Get `user` cart
-cart/               | POST        | Add product to `user` cart
-cart/{id}           | PUT         | Remove product from `user` cart
 cart/               | DELETE      | Delete `user` cart
+cart/{id}           | POST        | Add product to `user` cart
+cart/{id}           | PUT         | Remove product from `user` cart
 <!-- recommendation/{id} | GET         | Get a list of recommended products
 user/login          | POST        | Get `ACCESS_TOKEN`, `ID_TOKEN` and `REFRESH_TOKEN` -->
 
@@ -141,9 +141,9 @@ Deploy your API (Actions -> Deploy API)
 
 ## Testing with cURL
 After the services are deployed to AWS, you can send requests with cURL.
-To obtain an `ID_TOKEN`, run the login script:
+To obtain an `ID_TOKEN`, run the login script (first you need to create an user in your Cognito pool):
 ```bash
-$ node -e 'require("./user/scripts/login.js").handler("bruna@gmail.com","a1s2d3f4")'
+$ node -e 'require("./user/scripts/login.js").handler("<USER>","<PASSWORD>")'
 ```
 
 Searching for products:
