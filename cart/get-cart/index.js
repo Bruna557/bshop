@@ -18,9 +18,10 @@ exports.handler = (event, context, callback) => {
     console.log(`Fetching cart: user ${user}`)
 
     getCart(user).then((response) => {
+        // API Gateway throws error 500 if you pass a json in the body or no status code
         callback(null, {
             statusCode: response.$metadata.httpStatusCode,
-            body: response.Items.map((i) => unmarshall(i)),
+            body: JSON.stringify(response.Items.map((i) => unmarshall(i))),
             headers:  { 'Access-Control-Allow-Origin': '*' }
         })
     }).catch((err) => {

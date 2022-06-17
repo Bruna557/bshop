@@ -1,0 +1,21 @@
+{
+    "requestContext": {
+        "authorizer": {
+            "claims": {
+                "cognito:username": "bruna@gmail.com"
+            }
+        }
+    },
+    "pathParameters": {
+        "id": "1"
+    },
+    "body": {
+        "product": {
+            "id": "1",
+            "name": "some name",
+            "description": "some description",
+            "image_url": "some url",
+            "price": 123.4
+        }
+    }
+}

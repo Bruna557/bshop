@@ -1,0 +1,12 @@
+{
+    "requestContext": {
+      "authorizer": {
+        "claims": {
+            "cognito:username": "bruna@gmail.com"
+        }
+      }
+    },
+    "pathParameters": {
+        "id": "1"
+    }
+}

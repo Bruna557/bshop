@@ -17,7 +17,10 @@ exports.handler = (event, context, callback) => {
     console.log(`Deleting cart: user ${user}`)
 
     deleteCart(user).then((response) => {
-        callback(null, response)
+        callback(null, {
+            statusCode: response.$metadata.httpStatusCode,
+            headers:  { 'Access-Control-Allow-Origin': '*' }
+        })
     }).catch((err) => {
         console.error('Error processing DeleteCart request', err)
         errorResponse(err.message, context.awsRequestId, callback)
@@ -26,7 +29,6 @@ exports.handler = (event, context, callback) => {
 
 function deleteCart(user) {
     // Retrieve products
-    let products = []
     let params = {
         TableName: "cart",
         KeyConditionExpression: "username = :user",
@@ -36,10 +38,7 @@ function deleteCart(user) {
     }
     return db.send(new QueryCommand(params))
         .then((response) => {
-            products = response.Items
-            console.log('########################')
-            console.log(response.Items)
-            console.log('########################')
+            const products = response.Items
 
             // Delete products
             params = {

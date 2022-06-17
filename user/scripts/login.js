@@ -19,12 +19,9 @@ exports.handler = (username, password) => {
     const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData)
     cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: function (result) {
-            console.log('######################################################')
-            console.log('ACCESS TOKEN: ' + result.getAccessToken().getJwtToken())
-            console.log('######################################################')
+            // console.log('ACCESS TOKEN: ' + result.getAccessToken().getJwtToken())
             console.log('ID TOKEN: ' + result.getIdToken().getJwtToken())
-            console.log('######################################################')
-            console.log('REFRESH TOKEN: ' + result.getRefreshToken().getToken())
+            // console.log('REFRESH TOKEN: ' + result.getRefreshToken().getToken())
         },
         onFailure: function(err) {
             console.log(err)

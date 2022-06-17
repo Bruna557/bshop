@@ -13,25 +13,28 @@ exports.handler = (event, context, callback) => {
     }
 
     const user = event.requestContext.authorizer.claims['cognito:username']
-    const product = event.body.product
+    const product_id = event.pathParameters.id
+    const product = event.body  // API Gateway stringifies the body
+    console.log(`Adding product to cart: user ${user}, product_id ${product_id}`)
 
-    console.log(`Adding product to cart: user ${user}, product ${JSON.stringify(product)}`)
-
-    addToCart(user, product).then((response) => {
-        callback(null, response)
+    addToCart(user, product_id, product).then((response) => {
+        callback(null, {
+            statusCode: response.$metadata.httpStatusCode,
+            headers:  { 'Access-Control-Allow-Origin': '*' }
+        })
     }).catch((err) => {
         console.error('Error processing AddToCart request', err)
         errorResponse(err.message, context.awsRequestId, callback)
     })
 }
 
-function addToCart(user, product) {
+function addToCart(user, product_id, product) {
     const params = {
         TableName: 'cart',
         Item: {
             "username": { S: user },
-            "product_id": { S: product.id },
-            "product": { S: JSON.stringify(product) }
+            "product_id": { S: product_id },
+            "product": { S: product }
         }
     }
     return db.send(new PutItemCommand(params))

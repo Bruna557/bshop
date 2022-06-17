@@ -5,8 +5,5 @@
                 "cognito:username": "bruna@gmail.com"
             }
         }
-    },
-    "headers": {
-        "Authorization": "<ID_TOKEN>"
     }
 }
