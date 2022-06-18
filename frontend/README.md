@@ -6,16 +6,19 @@
 - [x] Mock API
 - [x] Implement product detail page
 - [x] Implement cart page
-- [ ] Implement login page
-- [ ] Implement recommendation component
 - [x] Implement localization
+- [x] Fix navbar dropdown clip
+
+- [ ] Implement login page
 - [ ] Implement search
 - [ ] Implement pagination
+- [ ] Implement API (backend integration)
+
 - [ ] Fix navbar spacing
-- [x] Fix navbar dropdown clip
 - [ ] Fix navbar icon sizes
 - [ ] Make navbar responsive
 - [ ] Make grid responsive
 - [ ] Fix grid image sizes
 - [ ] Fix cart page: don't repeat product if multiple
-- [ ] Implement API (backend integration)
+
+- [ ] Implement recommendation component

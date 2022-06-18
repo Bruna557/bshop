@@ -1,18 +1,18 @@
-import { Outlet } from "react-router-dom";
-import { ToastContainer } from 'react-toastify';
+import { Outlet } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 
-import Navigation from "../../components/Navigation";
+import Navigation from '../components/Navigation/Navigation'
 
-import 'react-toastify/dist/ReactToastify.css';
-import "./style.css";
+import 'react-toastify/dist/ReactToastify.css'
+import './BaseLayout.css'
 
 const BaseLayout = () => {
     return (
         <>
             <Navigation />
-            <div className="content">
+            <div className='content'>
                 <ToastContainer
-                    position="top-right"
+                    position='top-right'
                     autoClose={5000}
                     hideProgressBar
                     newestOnTop
@@ -25,7 +25,7 @@ const BaseLayout = () => {
                 <Outlet />
             </div>
         </>
-    );
+    )
 }
 
-export default BaseLayout;
+export default BaseLayout

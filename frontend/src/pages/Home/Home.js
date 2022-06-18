@@ -1,11 +1,11 @@
-import Grid from "../../components/Grid";
+import Grid from '../../components/Grid/Grid'
 
 const Home = () => {
     return (
         <>
             <Grid />
         </>
-    );
+    )
 }
 
-export default Home;
+export default Home

@@ -1,29 +1,35 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
 
-import { getCopy } from "../api";
-
-// A "slice" is a collection of Redux reducer logic and actions for a single
-// feature in your app, typically defined together in a single file.
+/*
+ * A "slice" is a collection of Redux reducer logic and actions for a single
+ * feature in your app. The name comes from splitting up the root Redux state
+ * object into multiple "slices" of state
+ *
+ * Redux Toolkit allows us to write "mutating" logic in reducers. It
+ * doesn't actually mutate the state because it uses the Immer library,
+ * which detects changes to a "draft state" and produces a brand new
+ * immutable state based off those changes.
+*/
 export const localizationSlice = createSlice({
-    name: "localization",
+    name: 'localization',
     initialState: {
-        language: "en",
-        copy: getCopy(),
+        language: null,
+        copy: {},
     },
     reducers: {
-        changeLanguage: (state, action) => {
-            // Redux Toolkit allows us to write "mutating" logic in reducers. It
-            // doesn't actually mutate the state because it uses the Immer library,
-            // which detects changes to a "draft state" and produces a brand new
-            // immutable state based off those changes
-            if (action.payload !== state.language) {
-                state.language = action.payload;
-                state.copy = getCopy(action.payload);
-            }
+        setLanguage: (state, action) => {
+            state.language = action.payload.language
+            state.copy = action.payload.copy
         },
     },
-});
+})
 
-export const { changeLanguage } = localizationSlice.actions;
+// Actions
+export const { setLanguage } = localizationSlice.actions
 
-export default localizationSlice.reducer;
+// Selectors
+export const getCopy = (state) => state.localization.copy
+export const getLanguage = (state) => state.localization.language
+
+// Reducer
+export default localizationSlice.reducer

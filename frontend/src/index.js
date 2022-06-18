@@ -1,17 +1,23 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import App from './App'
+import store from './store'
 
-import store from "./store";
-import AppRoutes from "./routes";
+import './index.css'
 
-import "./style.css"
+import { fetchCopyThunk } from './store/localizationThunks'
+import { fetchProductsThunk } from './store/productThunks'
+
+store.dispatch(fetchCopyThunk())
+store.dispatch(fetchProductsThunk())
 
 ReactDOM.render(
-    <Provider store={store}>
-        <AppRoutes />
-    </Provider>,
-    document.getElementById("root")
-);
+    <React.StrictMode>
+        <Provider store={store}>
+            <App />
+        </Provider>
+    </React.StrictMode>,
+    document.getElementById('root')
+)

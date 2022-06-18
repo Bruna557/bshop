@@ -3,7 +3,7 @@ function Recommendation() {
         <>
             <h1>Recommendation</h1>
         </>
-    );
+    )
 }
 
-export default Recommendation;
+export default Recommendation
