@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify'
 
-import { addToCart } from '../services/mockService'
+import { addToCart } from '../services/mocks/cartService'
 
 const processAddToCart = async (product, copy) => {
     const cart = await addToCart(product)
