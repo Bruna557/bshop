@@ -85,8 +85,13 @@ Delete cart:
 $ node -e 'require("./cart/delete-cart/index.js").handler({"requestContext":{"authorizer":{"claims":{"cognito:username":"bruna@gmail.com"}}}},{"awsRequestId":"local-test"},console.log)'
 ```
 
+Get copy:
+```bash
+$ node -e 'require("./localization/get-copy/index.js").handler({"queryStringParameters":{"language":"en"}},{"awsRequestId":"local-test"},console.log)'
+```
+
 ## Manual deploy
-First we need to create policies and roles to grant our lambdas permission to perform actions against DynamoDb, OpenSearch and CloudWatch.
+First we need to create policies and roles to grant our lambdas permission to perform actions against DynamoDb, OpenSearch, S3 and CloudWatch.
 Create an IAM policy (IAM -> Policies -> Create policy); in the JSON editor, paste the following:
 ```json
 {
@@ -100,6 +105,7 @@ Create an IAM policy (IAM -> Policies -> Create policy); in the JSON editor, pas
                 "dynamodb:BatchWriteItem",
                 "dynamodb:Query",
                 "es:ESHttpPost",
+                "s3:GetObject",
                 "logs:CreateLogStream",
                 "logs:PutLogEvents"
             ],
@@ -114,7 +120,7 @@ Create an IAM role (IAM -> Roles -> Create role). As "Trusted entity type" selec
 
 Recursively zip everything inside a lambda folder, including `node_modules`. Example (linux):
 ```bash
-$ cd catalog/search
+$ cd catalog/search-products
 $ npm i
 $ zip -r search-products.zip .
 ```

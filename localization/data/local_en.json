@@ -1,0 +1,17 @@
+{
+  "search": "Search",
+  "catalog": "Catalog",
+  "cart": "Shopping Cart",
+  "added_to_cart": "added to cart!",
+  "cart_empty": "Your shopping cart is empty",
+  "order_summary": "Order Summary",
+  "search_result": "Search result",
+  "see_more": "See more",
+  "sign_out": "Sign out",
+  "buy": "Buy",
+  "price": "Price",
+  "discount": "Discount",
+  "shipping": "Shipping",
+  "total": "Total",
+  "something_went_wrong": "Something went wrong :("
+}

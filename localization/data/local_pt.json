@@ -1,0 +1,17 @@
+{
+  "search": "Pesquisar",
+  "catalog": "Catálogo",
+  "cart": "Carrinho de Compras",
+  "added_to_cart": "adicionado ao carrinho!",
+  "cart_empty": "Seu carrinho de compras está vazio",
+  "order_summary": "Resumo da Compra",
+  "search_result": "Resultado da pesquisa",
+  "see_more": "Ver mais",
+  "sign_out": "Sair",
+  "buy": "Comprar",
+  "price": "Preço",
+  "discount": "Desconto",
+  "shipping": "Envio",
+  "total": "Total",
+  "something_went_wrong": "Algo deu errado :("
+}

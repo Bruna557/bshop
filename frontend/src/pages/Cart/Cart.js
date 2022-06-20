@@ -6,11 +6,11 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 import Rating from '../../components/Rating/Rating'
 import { getCopy } from '../../store/localizationSlice'
-import { fetchCart, removeFromCart } from '../../services/mockService'
+import { fetchCart, removeFromCart } from '../../services/mocks/cartService'
 
 import './Cart.css'
 
-function Cart() {
+const Cart = () => {
     const copy = useSelector(getCopy)
     const [cart, setCart] = useState([])
     const [totalPrice, setTotalPrice] = useState(0)
@@ -27,15 +27,13 @@ function Cart() {
 
     const deleteItem = (id) => {
         removeFromCart(id)
-            .then((res) => {
-                if (res.status === 200) return JSON.parse(res.body)
-                throw new Error('Error removing from cart', res)
+            .then(() => {
+                fetchCart()
+                    .then((data) => {
+                        setCart(data)
+                        setTotalPrice(data.reduce((sum, product) => sum + parseFloat(product.price), 0))
+                    })
             })
-            .then((data) => {
-                setCart(data)
-                setTotalPrice(data.reduce((sum, product) => sum + parseFloat(product.price), 0))
-            })
-            .catch((err) => console.log(JSON.stringify(err)))
     }
 
     return (
@@ -52,7 +50,7 @@ function Cart() {
                                 <Col>
                                     <div className='item-name'>{product.name}</div>
                                     <div className='item-price'>${product.price}</div>
-                                    <Rating rating={product.rating} />
+                                    {product.rating && <Rating rating={product.rating} />}
                                 </Col>
                                 <Col>
                                     <Button variant='dark' onClick={() => deleteItem(product.id)}>
@@ -81,7 +79,7 @@ function Cart() {
                             <span>{copy.total}:</span>
                             <span>${totalPrice.toFixed(2)}</span>
                         </div>
-                        <Button variant='success' className='buy-btn'>{copy.buy}</Button>
+                        <Button variant='success' disabled className='buy-btn'>{copy.buy}</Button>
                     </Col>
                 </Row>
             }

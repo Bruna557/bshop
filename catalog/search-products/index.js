@@ -30,7 +30,11 @@ exports.handler = (event, context, callback) => {
     }
 
     queryCatalog(payload).then((response) => {
-        callback(null, response)
+        callback(null, {
+            statusCode: response.statusCode,
+            body: response.body,
+            headers:  { 'Access-Control-Allow-Origin': '*' }
+        })
     }).catch((err) => {
         console.error('Error processing SearchProducts request', err)
         errorResponse(err.message, context.awsRequestId, callback)

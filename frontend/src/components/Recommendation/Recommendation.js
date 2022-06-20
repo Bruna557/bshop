@@ -1,7 +1,7 @@
-function Recommendation() {
+const Recommendation = () => {
     return (
         <>
-            <h1>Recommendation</h1>
+            <h1>TODO</h1>
         </>
     )
 }

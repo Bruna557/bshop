@@ -1,7 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { updateProducts } from './productSlice'
-import { fetchProducts, searchProducts } from '../services/mockService'
+import { updateProducts, setSearch } from './productSlice'
+import { fetchProducts } from '../services/mocks/productService'
+
+const PAGE_SIZE = 4
 
 /*
  * Thunk functions are middlewares that intercept actions before they reach a reducer.
@@ -15,19 +17,21 @@ import { fetchProducts, searchProducts } from '../services/mockService'
  *   - fulfilled: 'products/get/fulfilled'
  *   - rejected: 'products/get/rejected'
 */
-export const fetchProductsThunk = createAsyncThunk('products/get', async (previousPage = false, thunkApi) => {
-    const currentPage = thunkApi.getState().product.currentPage
-    const page = previousPage ? currentPage - 1 : currentPage + 1
-    const products = await fetchProducts(page)
-    if (products) {
-        console.log('got products:' + products.length)
-        thunkApi.dispatch(updateProducts({products: products, currentPage: page, total: 10}))
-    }
+export const fetchProductsThunk = createAsyncThunk('products/get', async (page = 1, thunkApi) => {
+    const q = thunkApi.getState().product.search
+    fetchProducts(page, PAGE_SIZE, q)
+        .then(data => {
+            thunkApi.dispatch(updateProducts({
+                products: data.products,
+                currentPage: page,
+                numberOfPages: Math.ceil(data.total/PAGE_SIZE)
+            }))
+        })
 })
 
-export const searchProductsThunk = createAsyncThunk('products/search', async (q, thunkApi) => {
-    const products = await searchProducts(q)
-    if (products) {
-        thunkApi.dispatch(updateProducts({products: products, currentPage: 1, total: 10}))
-    }
+// Improve: instead of calling this, call setSearch and implement listener that will
+// call fetchProductsThunk(1) whenever q changes
+export const setSearchAndFetchProductsThunk = createAsyncThunk('products/search', async (q, thunkApi) => {
+    thunkApi.dispatch(setSearch(q))
+    thunkApi.dispatch(fetchProductsThunk(1))
 })

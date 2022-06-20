@@ -2,7 +2,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import BaseLayout from './layouts/BaseLayout'
 import Home from './pages/Home/Home'
-import Product from './pages/Product/ProductDetail'
+import SearchResult from './pages/SearchResult/SearchResult'
+import ProductDetail from './pages/Product/ProductDetail'
 import Cart from './pages/Cart/Cart'
 import Login from './pages/Login/Login'
 
@@ -15,7 +16,8 @@ const App = () => {
             <Routes>
                 <Route path='/' element={<BaseLayout />}>
                 <Route index element={<Home />} />
-                <Route path='product/:id' element={<Product />} />
+                <Route path='search' element={<SearchResult />} />
+                <Route path='product/:id' element={<ProductDetail />} />
                 <Route path='cart' element={<Cart />} />
                 <Route path='login' element={<Login />} />
                 </Route>

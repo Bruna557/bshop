@@ -1,24 +1,28 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { getCopy } from '../../store/localizationSlice'
 import { setSearchAndFetchProductsThunk } from '../../store/productThunks'
 import Grid from '../../components/Grid/Grid'
 
-const Home = () => {
+const SearchResult = () => {
     const dispatch = useDispatch()
     const copy = useSelector(getCopy)
+    const [q, setQ] = useState('')
 
     useEffect(() => {
-        dispatch(setSearchAndFetchProductsThunk(''))  // Clear search text and fetch first page
+        let _q = (new URLSearchParams(window.location.search)).get('q')
+        setQ(_q)
+        dispatch(setSearchAndFetchProductsThunk(_q))  // Set search text and fetch first page
     }, [])
+
 
     return (
         <>
-            <h1>{copy.catalog}</h1>
+            {q && <h1>{`${copy.search_result}: ${q}`}</h1>}
             <Grid />
         </>
     )
 }
 
-export default Home
+export default SearchResult

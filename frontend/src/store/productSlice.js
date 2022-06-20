@@ -14,20 +14,24 @@ export const productSlice = createSlice({
     name: 'product',
     initialState: {
         currentPage: 0,
-        total: null,
-        products: []
+        numberOfPages: 0,
+        products: [],
+        search: ''
     },
     reducers: {
         updateProducts: (state, action) => {
             state.products = action.payload.products
             state.currentPage = action.payload.currentPage
-            state.total = action.payload.total
+            state.numberOfPages = action.payload.numberOfPages
         },
+        setSearch: (state, action) => {
+            state.search = action.payload
+        }
     },
 })
 
 // Actions
-export const { updateProducts } = productSlice.actions
+export const { updateProducts, setSearch } = productSlice.actions
 
 // Selectors
 export const getProductList = (state) => state.product.products
@@ -37,9 +41,10 @@ export const getProductById = (id) => (state) => {
 export const getProductPagination = (state) => {
     return {
         currentPage: state.product.currentPage,
-        total: state.product.total
+        numberOfPages: state.product.numberOfPages
     }
 }
+export const getSearch = (state) => state.search
 
 // Reducer
 export default productSlice.reducer

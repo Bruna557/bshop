@@ -11,7 +11,7 @@ import processAddToCart from '../../utils/processAddToCart'
 
 import './ProductDetail.css'
 
-function Product() {
+const ProductDetail = () => {
     const copy = useSelector(getCopy)
     const { id } = useParams()
     const product = useSelector(getProductById(id))
@@ -40,4 +40,4 @@ function Product() {
     )
 }
 
-export default Product
+export default ProductDetail

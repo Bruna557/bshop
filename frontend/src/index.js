@@ -8,10 +8,10 @@ import store from './store'
 import './index.css'
 
 import { fetchCopyThunk } from './store/localizationThunks'
-import { fetchProductsThunk } from './store/productThunks'
+// import { login } from './services/mocks/userService'
 
 store.dispatch(fetchCopyThunk())
-store.dispatch(fetchProductsThunk())
+// login('bruna@gmail.com', 'a1s2d3f4')
 
 ReactDOM.render(
     <React.StrictMode>

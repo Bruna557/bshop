@@ -1,22 +1,27 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Navbar, Container, NavDropdown, Nav, Form, Button } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart, faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
 
 import { getCopy, getLanguage } from '../../store/localizationSlice'
 import { fetchCopyThunk } from '../../store/localizationThunks'
-import { searchProductsThunk } from '../../store/productThunks'
 
 import './Navigation.css'
 
 const Navigation = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const language = useSelector(getLanguage)
     const copy = useSelector(getCopy)
-
     const [q, setQ] = useState('')
+
+    const search = () => {
+        const path = `/search?q=${q}`
+        setQ('')
+        navigate(path)
+    }
 
     return (
         <>
@@ -30,12 +35,16 @@ const Navigation = () => {
                         </Link>
                     </Nav>
                     <Nav className='mx-auto'>
-                        {/* <Form className='d-flex' onSubmit={dispatch(searchProductsThunk(q))}>
-                            <Form.Control type='text' placeholder={copy.search} onChange={(e) => setQ(e.target.value)} />
-                            <Button variant='dark' type='submit'>
+                        <Form className='d-flex'>
+                            <Form.Control
+                                type='text'
+                                placeholder={copy.search}
+                                value={q}
+                                onChange={(event) => setQ(event.target.value)} />
+                            <Button variant='dark' onClick={search}>
                                 <FontAwesomeIcon icon={faSearch} />
                             </Button>
-                        </Form> */}
+                        </Form>
                     </Nav>
                     <Nav className='ms-auto'>
                         <NavDropdown title={<img src={`/assets/${language}-icon.png`} alt=''></img>} id='language'>
