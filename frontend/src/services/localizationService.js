@@ -1,4 +1,4 @@
-import { API_GATEWAY_URL } from "./config"
+import { API_GATEWAY_URL } from './config'
 
 export const fetchCopy = async (language) => {
     let url = `${API_GATEWAY_URL}/localization?language=${language}`

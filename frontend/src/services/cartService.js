@@ -1,4 +1,4 @@
-import { API_GATEWAY_URL } from "./config"
+import { API_GATEWAY_URL } from './config'
 
 const url = `${API_GATEWAY_URL}/cart`
 

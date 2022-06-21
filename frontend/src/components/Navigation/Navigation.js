@@ -67,7 +67,7 @@ const Navigation = () => {
                                 <FontAwesomeIcon icon={faShoppingCart} size='lg' />
                             </Link>
                             {isLoggedIn && <NavDropdown title={<FontAwesomeIcon icon={faUser} size='lg' />} id='account' align='end'>
-                                <NavDropdown.Item>{copy.sign_out}</NavDropdown.Item>
+                                <NavDropdown.Item onClick={signOut}>{copy.sign_out}</NavDropdown.Item>
                             </NavDropdown>}
                             {!isLoggedIn &&
                             <Button variant='dark' onClick={signIn}>
