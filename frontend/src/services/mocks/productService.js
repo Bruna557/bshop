@@ -1,5 +1,12 @@
 export const fetchProducts = async (page, size, q = null) => {
-    const products = q ? dummySearchResult : dummyCatalog
+    let products
+    if (q) {
+        console.log('query: ' + q)
+        if (q === 'nothing') products = []
+        else products = dummySearchResult
+    } else {
+        products = dummyCatalog
+    }
     return new Promise((resolve, reject) => {
         resolve({
             products: products.slice((page-1)*size, page*size),

@@ -34,35 +34,39 @@ const Grid = () => {
 
     return (
         <>
-            <Row  xs={1} sm={2} md={4} lg={4}>
-                {products.map((product, i) => (
-                    <Col key={i}>
-                        <Card>
-                            <Card.Img variant='top' src={product.image_url} alt='product' />
-                            <Card.Title>{product.name}</Card.Title>
-                            <Card.Body>
-                                <Card.Text>${product.price}</Card.Text>
-                                <Rating rating={product.rating} />
-                                <div className='footer'>
-                                    <Button
-                                        variant='success'
-                                        onClick={() => addProductToCart(product, isLoggedIn, copy, navigate)}>
-                                        <FontAwesomeIcon icon={faShoppingCart} size='lg' />
-                                    </Button>
-                                    <Link to={`/product/${product.id}`}><Button variant='primary'>{copy.see_more}</Button></Link>
-                                </div>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                ))}
-            </Row>
-            <Row>
-                <Pagination>
-                    {currentPage > 1 && <Pagination.Prev onClick={previousPage}/>}
-                    <Pagination.Item>{currentPage}</Pagination.Item>
-                    {currentPage < numberOfPages && <Pagination.Next onClick={nextPage}/>}
-                </Pagination>
-            </Row>
+            {(!products || products.length === 0) ? <p className='no-results'>{copy.no_results}</p> :
+                <>
+                    <Row  xs={1} sm={2} md={4} lg={4}>
+                        {products.map((product, i) => (
+                            <Col key={i}>
+                                <Card>
+                                    <Card.Img variant='top' src={product.image_url} alt='product' />
+                                    <Card.Title>{product.name}</Card.Title>
+                                    <Card.Body>
+                                        <Card.Text>${product.price}</Card.Text>
+                                        <Rating rating={product.rating} />
+                                        <div className='footer'>
+                                            <Button
+                                                variant='success'
+                                                onClick={() => addProductToCart(product, isLoggedIn, copy, navigate)}>
+                                                <FontAwesomeIcon icon={faShoppingCart} size='lg' />
+                                            </Button>
+                                            <Link to={`/product/${product.id}`}><Button variant='primary'>{copy.see_more}</Button></Link>
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        ))}
+                    </Row>
+                    <Row>
+                        <Pagination>
+                            {currentPage > 1 && <Pagination.Prev onClick={previousPage}/>}
+                            <Pagination.Item>{currentPage}</Pagination.Item>
+                            {currentPage < numberOfPages && <Pagination.Next onClick={nextPage}/>}
+                        </Pagination>
+                    </Row>
+                </>
+            }
         </>
     )
 }

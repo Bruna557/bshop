@@ -6,12 +6,14 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 import Rating from '../../components/Rating/Rating'
 import { getCopy } from '../../store/localizationSlice'
+import { getIsLoggedIn } from '../../store/userSlice'
 import { fetchCart, removeFromCart } from '../../services/mocks/cartService'
 
 import './Cart.css'
 
 const Cart = () => {
     const copy = useSelector(getCopy)
+    const isLoggedIn = useSelector(getIsLoggedIn)
     const [cart, setCart] = useState([])
     const [totalPrice, setTotalPrice] = useState(0)
 
@@ -34,7 +36,7 @@ const Cart = () => {
 
     return (
         <>
-            {cart.length === 0 ? <h1>{copy.cart_empty}</h1> :
+            {(!isLoggedIn && cart.length === 0) ? <h1>{copy.cart_empty}</h1> :
                 <Row xs={1} md={2}>
                     <Col>
                         <h5>{copy.cart}</h5>
