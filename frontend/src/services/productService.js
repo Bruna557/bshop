@@ -16,6 +16,6 @@ export const fetchProducts = async (page, size, q = null) => {
             }
         })
         .catch ((err) => {
-            console.log(JSON.stringify(err))
+            console.log('Error: unable to fetch products', err)
         })
 }

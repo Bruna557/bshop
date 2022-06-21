@@ -14,7 +14,7 @@ export const fetchCart = async () => {
             return data.map((p) => JSON.parse(p.product))
         })
         .catch ((err) => {
-            console.log(JSON.stringify(err))
+            console.log('Error: unable to fetch cart', err)
         })
 }
 
@@ -27,7 +27,7 @@ export const addToCart = async (product) => {
         }
     })
         .catch ((err) => {
-            console.log(JSON.stringify(err))
+            console.log('Error: unable to add to cart', err)
         })
 }
 
@@ -39,6 +39,6 @@ export const removeFromCart = async (id) => {
         }
     })
         .catch ((err) => {
-            console.log(JSON.stringify(err))
+            console.log('Error: unable to remove from cart', err)
         })
 }

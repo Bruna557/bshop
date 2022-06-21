@@ -14,15 +14,18 @@ export const login = async (username, password) => {
         Pool : userPool
     }
     const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData)
-    cognitoUser.authenticateUser(authenticationDetails, {
-        onSuccess: function (result) {
-            localStorage.setItem('token', result.getIdToken().getJwtToken())
-            return
-        },
-        onFailure: function(err) {
-            console.log(err)
-        },
-    })
+    return new Promise((resolve, reject) =>
+        cognitoUser.authenticateUser(authenticationDetails, {
+            onSuccess: function (result) {
+                localStorage.setItem('token', result.getIdToken().getJwtToken())
+                resolve(true)
+            },
+            onFailure: function(err) {
+                console.log('Error: unable to log in', err)
+                resolve(false)
+            },
+        })
+    )
 }
 
 export const logout = () => {
