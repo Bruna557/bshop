@@ -29,8 +29,6 @@ export const fetchProductsThunk = createAsyncThunk('products/get', async (page =
         })
 })
 
-// Improve: instead of calling this, call setSearch and implement listener that will
-// call fetchProductsThunk(1) whenever q changes
 export const setSearchAndFetchProductsThunk = createAsyncThunk('products/search', async (q, thunkApi) => {
     thunkApi.dispatch(setSearch(q))
     thunkApi.dispatch(fetchProductsThunk(1))
