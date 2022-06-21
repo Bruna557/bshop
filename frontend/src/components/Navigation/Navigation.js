@@ -20,7 +20,8 @@ const Navigation = () => {
     const isLoggedIn = useSelector(getIsLoggedIn)
     const [q, setQ] = useState('')
 
-    const search = () => {
+    const search = (e) => {
+        e.preventDefault()
         const path = `/search?q=${q}`
         setQ('')
         navigate(path)
@@ -47,13 +48,13 @@ const Navigation = () => {
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="mx-auto">
-                            <Form className='d-flex ptb5'>
+                            <Form className='d-flex ptb5' onSubmit={search}>
                                 <Form.Control
                                     type='text'
                                     placeholder={copy.search}
                                     value={q}
                                     onChange={(event) => setQ(event.target.value)} />
-                                <Button variant='dark' onClick={search}>
+                                <Button variant='dark' type='submit'>
                                     <FontAwesomeIcon icon={faSearch} />
                                 </Button>
                             </Form>
