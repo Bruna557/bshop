@@ -16,12 +16,15 @@ export const login = async (username, password) => {
     const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData)
     cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: function (result) {
-            localStorage.setItem("token", result.getIdToken().getJwtToken())
-            return true
+            localStorage.setItem('token', result.getIdToken().getJwtToken())
+            return
         },
         onFailure: function(err) {
             console.log(err)
-            return false
         },
     })
+}
+
+export const logout = () => {
+    localStorage.setItem('token', null)
 }

@@ -1,11 +1,16 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 
+import { getCopy } from '../../store/localizationSlice'
 import { login } from '../../services/mocks/userService'
+import { setIsLoggedIn } from '../../store/userSlice'
 
 const Login = () => {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const copy = useSelector(getCopy)
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
 
@@ -14,43 +19,42 @@ const Login = () => {
         login(email, password)
             .then((isSuccess) => {
                 if (isSuccess) {
-                    toast.success('You are logged in!')
+                    toast.success(copy.sign_in_success)
+                    dispatch(setIsLoggedIn(true))
                     navigate('/')
                 } else {
-                    toast.error('Login failed')
+                    toast.error(copy.sign_in_failed)
                 }
             })
     }
 
     return (
         <>
-            <div className="row d-flex justify-content-center">
-                <div className="col-md-4">
-                    <form id="loginform" onSubmit={loginSubmit}>
-                    <div className="form-group">
-                        <label>Email address</label>
+            <div className='row d-flex justify-content-center'>
+                <div className='col-md-4'>
+                    <form id='loginform' onSubmit={loginSubmit}>
+                    <div className='form-group'>
+                        <label>{copy.email}</label>
                         <input
-                            type="email"
-                            className="form-control"
-                            id="EmailInput"
-                            name="EmailInput"
-                            aria-describedby="emailHelp"
-                            placeholder="Enter email"
+                            type='email'
+                            className='form-control'
+                            id='EmailInput'
+                            name='EmailInput'
+                            aria-describedby='emailHelp'
                             onChange={(event) => setEmail(event.target.value)}
                         />
                     </div>
-                    <div className="form-group">
-                        <label>Password</label>
+                    <div className='form-group'>
+                        <label>{copy.password}</label>
                         <input
-                            type="password"
-                            className="form-control"
-                            id="exampleInputPassword1"
-                            placeholder="Password"
+                            type='password'
+                            className='form-control'
+                            id='exampleInputPassword1'
                             onChange={(event) => setPassword(event.target.value)}
                         />
                     </div>
-                    <button type="submit" className="btn btn-primary">
-                        Submit
+                    <button type='submit' className='btn btn-primary'>
+                        {copy.sign_in}
                     </button>
                     </form>
                 </div>

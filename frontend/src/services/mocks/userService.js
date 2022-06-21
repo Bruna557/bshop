@@ -1,9 +1,13 @@
 export const login = (username, password) => {
     let success = false
-    if (username === 'bruna@gmail.com') {
+    if (password === '1234') {
         success = true
     }
     return new Promise((resolve, reject) => {
         resolve(success)
     })
+}
+
+export const logout = () => {
+    return
 }

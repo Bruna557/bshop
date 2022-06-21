@@ -7,16 +7,15 @@ export const fetchCart = async () => {
 }
 
 export const addToCart = async (product) => {
-    console.log('adding to cart: ' + product.id)
     cart.push(product)
     return new Promise((resolve, reject) => {
         resolve(cart)
     })
 }
 
-export const removeFromCart = async (key) => {
-    cart.splice(key, 1) // 2nd parameter means remove one item only
+export const removeFromCart = async (id) => {
+    cart = cart.filter((product) => product.id !== id)
     return new Promise((resolve, reject) => {
-        resolve(cart)
+        resolve(true)
     })
 }

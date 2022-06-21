@@ -1,5 +1,4 @@
 export const fetchProducts = async (page, size, q = null) => {
-    console.log('fetching products: ' + q)
     const products = q ? dummySearchResult : dummyCatalog
     return new Promise((resolve, reject) => {
         resolve({
