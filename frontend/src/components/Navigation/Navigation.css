@@ -1,11 +1,11 @@
 .navbar {
-    height: 67px;
+    min-height: 67px;
 }
 
 .navbar a#cart {
     color: rgba(255,255,255,.55);
     display: block;
-    padding: .5rem 1rem;
+    padding: .5rem 1rem 0 0;
     text-decoration: none;
 }
 
@@ -24,4 +24,16 @@ img {
 
 .dropdown-toggle::after {
     display: none !important;
+}
+
+.navbar #language {
+    padding: 6px 1rem 0 0;
+}
+
+.navbar #account {
+    padding-left: 0;
+}
+
+.ptb5 {
+    padding: 5px 0;
 }

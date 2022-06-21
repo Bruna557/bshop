@@ -23,15 +23,13 @@ const ProductDetail = () => {
     return (
         <>
             <Row className='product-detail'>
-                <h1 className='name'>{product.name}</h1>
-                <Col>
+                <Col xs={12} md={3} lg={3}>
                     <img src={product.image_url} alt='product'></img>
                 </Col>
-                <Col>
+                <Col xs={12} md={9} lg={9}>
+                    <h1 className='name'>{product.name}</h1>
                     <div>{product.description}</div>
                     {product.rating && <Rating rating={product.rating} />}
-                </Col>
-                <Col>
                     <div className='price'>${product.price}</div>
                     <Button variant='success' disabled>{copy.buy}</Button>
                     <Button variant='success' onClick={() => addProductToCart(product, isLoggedIn, copy, navigate)}>

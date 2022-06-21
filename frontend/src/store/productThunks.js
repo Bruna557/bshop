@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { updateProducts, setSearch } from './productSlice'
 import { fetchProducts } from '../services/mocks/productService'
 
-const PAGE_SIZE = 4
+const PAGE_SIZE = 10
 
 /*
  * Thunk functions are middlewares that intercept actions before they reach a reducer.
