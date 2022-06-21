@@ -31,7 +31,7 @@ const Grid = () => {
 
     return (
         <>
-            <Row xs={1} md={4} className='g-4'>
+            <Row  xs={1} sm={2} md={4} lg={4}>
                 {products.map((product, i) => (
                     <Col key={i}>
                         <Card>

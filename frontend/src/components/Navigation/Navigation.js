@@ -25,39 +25,39 @@ const Navigation = () => {
 
     return (
         <>
-            <Navbar expand='lg' bg='dark' variant='dark' fixed='top'>
+            <Navbar collapseOnSelect expand="md" bg="dark" variant="dark" fixed="top">
                 <Container>
-                    <Navbar.Toggle aria-controls='basic-navbar-nav' />
-                    <Navbar.Collapse id='basic-navbar-nav'>
-                    <Nav className='me-auto'>
+                    <Navbar.Brand>
                         <Link to='/'>
                             <img src='/assets/logo-name.png' alt='logo-name'></img>
                         </Link>
-                    </Nav>
-                    <Nav className='mx-auto'>
-                        <Form className='d-flex'>
-                            <Form.Control
-                                type='text'
-                                placeholder={copy.search}
-                                value={q}
-                                onChange={(event) => setQ(event.target.value)} />
-                            <Button variant='dark' onClick={search}>
-                                <FontAwesomeIcon icon={faSearch} />
-                            </Button>
-                        </Form>
-                    </Nav>
-                    <Nav className='ms-auto'>
-                        <NavDropdown title={<img src={`/assets/${language}-icon.png`} alt=''></img>} id='language'>
-                            <NavDropdown.Item onClick={() => dispatch(fetchCopyThunk('en'))}>English</NavDropdown.Item>
-                            <NavDropdown.Item onClick={() => dispatch(fetchCopyThunk('pt'))}>Português</NavDropdown.Item>
-                        </NavDropdown>
-                        <Link to='/cart' id='cart'>
-                            <FontAwesomeIcon icon={faShoppingCart} size='lg' />
-                        </Link>
-                        <NavDropdown title={<FontAwesomeIcon icon={faUser} size='lg' />} id='account' align='end'>
-                            <NavDropdown.Item>{copy.sign_out}</NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
+                    </Navbar.Brand>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                    <Navbar.Collapse id="responsive-navbar-nav">
+                        <Nav className="mx-auto">
+                            <Form className='d-flex ptb5'>
+                                <Form.Control
+                                    type='text'
+                                    placeholder={copy.search}
+                                    value={q}
+                                    onChange={(event) => setQ(event.target.value)} />
+                                <Button variant='dark' onClick={search}>
+                                    <FontAwesomeIcon icon={faSearch} />
+                                </Button>
+                            </Form>
+                        </Nav>
+                        <Nav>
+                            <NavDropdown title={<img src={`/assets/${language}-icon.png`} alt=''></img>} id='language'>
+                                <NavDropdown.Item onClick={() => dispatch(fetchCopyThunk('en'))}>English</NavDropdown.Item>
+                                <NavDropdown.Item onClick={() => dispatch(fetchCopyThunk('pt'))}>Português</NavDropdown.Item>
+                            </NavDropdown>
+                            <Link to='/cart' id='cart'>
+                                <FontAwesomeIcon icon={faShoppingCart} size='lg' />
+                            </Link>
+                            <NavDropdown title={<FontAwesomeIcon icon={faUser} size='lg' />} id='account' align='end'>
+                                <NavDropdown.Item>{copy.sign_out}</NavDropdown.Item>
+                            </NavDropdown>
+                        </Nav>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
