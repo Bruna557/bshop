@@ -16,23 +16,19 @@ const Cart = () => {
     const [totalPrice, setTotalPrice] = useState(0)
 
     useEffect(() => {
-        fetchCart()
-            .then((data) => {
-                if (data) {
-                    setCart(data)
-                    setTotalPrice(data.reduce((sum, product) => sum + parseFloat(product.price), 0))
-                }
-            })
+        getCart()
     }, [])
 
     const deleteItem = (id) => {
         removeFromCart(id)
-            .then(() => {
-                fetchCart()
-                    .then((data) => {
-                        setCart(data)
-                        setTotalPrice(data.reduce((sum, product) => sum + parseFloat(product.price), 0))
-                    })
+            .then(() => getCart())
+    }
+
+    const getCart = () => {
+        fetchCart()
+            .then((data) => {
+                setCart(data)
+                setTotalPrice(data.reduce((sum, product) => sum + parseFloat(product.price), 0))
             })
     }
 
