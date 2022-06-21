@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { Navbar, Container, NavDropdown, Nav, Form, Button } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faShoppingCart, faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faShoppingCart, faSearch, faUser, faSignIn } from '@fortawesome/free-solid-svg-icons'
 
+import { logout } from '../../services/mocks/userService'
+import { getIsLoggedIn, setIsLoggedIn } from '../../store/userSlice'
 import { getCopy, getLanguage } from '../../store/localizationSlice'
 import { fetchCopyThunk } from '../../store/localizationThunks'
 
@@ -15,12 +17,22 @@ const Navigation = () => {
     const navigate = useNavigate()
     const language = useSelector(getLanguage)
     const copy = useSelector(getCopy)
+    const isLoggedIn = useSelector(getIsLoggedIn)
     const [q, setQ] = useState('')
 
     const search = () => {
         const path = `/search?q=${q}`
         setQ('')
         navigate(path)
+    }
+
+    const signIn = () => {
+        navigate('/login')
+    }
+
+    const signOut = () => {
+        logout()
+        dispatch(setIsLoggedIn(false))
     }
 
     return (
@@ -54,9 +66,13 @@ const Navigation = () => {
                             <Link to='/cart' id='cart'>
                                 <FontAwesomeIcon icon={faShoppingCart} size='lg' />
                             </Link>
-                            <NavDropdown title={<FontAwesomeIcon icon={faUser} size='lg' />} id='account' align='end'>
+                            {isLoggedIn && <NavDropdown title={<FontAwesomeIcon icon={faUser} size='lg' />} id='account' align='end'>
                                 <NavDropdown.Item>{copy.sign_out}</NavDropdown.Item>
-                            </NavDropdown>
+                            </NavDropdown>}
+                            {!isLoggedIn &&
+                            <Button variant='dark' onClick={signIn}>
+                                {<FontAwesomeIcon icon={faSignIn} size='lg' />}
+                            </Button>}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

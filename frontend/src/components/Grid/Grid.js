@@ -1,22 +1,26 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { Button, Card, Col, Row } from 'react-bootstrap'
 import Pagination from 'react-bootstrap/Pagination'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 
+import { addToCart } from '../../services/mocks/cartService'
 import { getProductList, getProductPagination } from '../../store/productSlice'
 import { getCopy } from '../../store/localizationSlice'
+import { getIsLoggedIn } from '../../store/userSlice'
 import { fetchProductsThunk } from '../../store/productThunks'
-import processAddToCart from '../../utils/processAddToCart'
 import Rating from '../Rating/Rating'
 
 import './Grid.css'
 
 const Grid = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const products = useSelector(getProductList)
     const copy = useSelector(getCopy)
+    const isLoggedIn = useSelector(getIsLoggedIn)
     const {currentPage, numberOfPages} = useSelector(getProductPagination)
 
     const nextPage = () => {
@@ -27,6 +31,19 @@ const Grid = () => {
     const previousPage = () => {
         const page = currentPage - 1
         dispatch(fetchProductsThunk(page))
+    }
+
+    const addProductToCart = (product) => {
+        if (isLoggedIn) {
+            addToCart(product)
+                .then(() => {
+                    toast.success(`${product.name} ${copy.added_to_cart}`)
+                })
+                .catch(() => toast.error(copy.something_went_wrong))
+        } else {
+            toast.error(copy.must_sign_in)
+            navigate('/login')
+        }
     }
 
     return (
@@ -41,7 +58,7 @@ const Grid = () => {
                                 <Card.Text>${product.price}</Card.Text>
                                 <Rating rating={product.rating} />
                                 <div className='footer'>
-                                    <Button variant='success' onClick={() => processAddToCart(product, copy)}>
+                                    <Button variant='success' onClick={() => addProductToCart(product)}>
                                         <FontAwesomeIcon icon={faShoppingCart} size='lg' />
                                     </Button>
                                     <Link to={`/product/${product.id}`}><Button variant='primary'>{copy.see_more}</Button></Link>
