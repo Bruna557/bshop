@@ -2,8 +2,8 @@
 const { DynamoDB, QueryCommand } = require('@aws-sdk/client-dynamodb')
 const { unmarshall } = require('@aws-sdk/util-dynamodb')
 
-const region = 'us-east-1'
-const db = new DynamoDB({ 'region': region })
+const REGION = process.env.AWS_REGION
+const db = new DynamoDB({ 'region': REGION })
 
 exports.handler = (event, context, callback) => {
     console.log('Received GetCart request', event)
@@ -32,7 +32,7 @@ exports.handler = (event, context, callback) => {
 
 function getCart(user) {
     const params = {
-        TableName: "cart",
+        TableName: "cart-db",
         KeyConditionExpression: "username = :user",
         ExpressionAttributeValues: {
             ":user": { S: user }

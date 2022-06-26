@@ -1,7 +1,5 @@
 # Concepts
 
-[TOC]
-
 ## Serverless Design Principles
 
 - **Single Purpose**: Your functions should be concise, short, simple, and follow the Single Responsibility Principle.

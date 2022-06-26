@@ -1,6 +1,8 @@
 const { S3Client, GetObjectCommand } = require('@aws-sdk/client-s3')
 
-const s3Client = new S3Client({ region: 'us-east-1' })
+const REGION = process.env.AWS_REGION
+const BUCKET = process.env.LOCALIZATION_BUCKET
+const s3Client = new S3Client({ region: REGION })
 
 exports.handler = (event, context, callback) => {
     console.log('Received GetCopy request', event)
@@ -21,7 +23,7 @@ exports.handler = (event, context, callback) => {
 
 async function getCopy(language) {
     const bucketParams = {
-        Bucket: 'bshop-anvqdwjh',
+        Bucket: BUCKET,
         Key: `localization/local_${language}.json`,
     }
 

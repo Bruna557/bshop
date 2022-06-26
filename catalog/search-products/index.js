@@ -4,9 +4,9 @@ const { SignatureV4 } = require('@aws-sdk/signature-v4')
 const { NodeHttpHandler } = require('@aws-sdk/node-http-handler')
 const { Sha256 } = require('@aws-crypto/sha256-browser')
 
-const region = 'us-east-1'
-const domain = 'search-catalog-db-kzo4u3d3hywf53mehgc2zvdhku.us-east-1.es.amazonaws.com'
-const index = 'products'
+const REGION = process.env.AWS_REGION
+const CATALOG_DB_DOMAIN = process.env.CATALOG_DB_DOMAIN
+const INDEX = 'products'
 
 exports.handler = (event, context, callback) => {
     console.log('Received SearchProducts request', event)
@@ -46,16 +46,16 @@ async function queryCatalog(query) {
         body: JSON.stringify(query),
         headers: {
             'Content-Type': 'application/json',
-            'host': domain
+            'host': CATALOG_DB_DOMAIN
         },
-        hostname: domain,
+        hostname: CATALOG_DB_DOMAIN,
         method: 'POST',
-        path: index + '/_search'
+        path: INDEX + '/_search'
     })
 
     const signer = new SignatureV4({
         credentials: defaultProvider(),
-        region: region,
+        region: REGION,
         service: 'es',
         sha256: Sha256
     })

@@ -1,0 +1,214 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: "bShop is an e-commerce website developed as the final project of my specialization in Distributed Software Architecture"
+Globals: # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+  Function:
+    Runtime: nodejs16.x
+    Handler: index.handler # All my functions export a function named 'handler' in index.js
+
+Resources:
+  Api:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: prod
+      Cors:
+        AllowHeaders: "'Content-Type, Authorization'"
+        AllowOrigin: "'*'"
+      Auth:
+        ApiKeyRequired: true
+        DefaultAuthorizer: CognitoAuthorizer
+        Authorizers:
+          CognitoAuthorizer:
+            UserPoolArn: !GetAtt CognitoUserPool.Arn
+
+  SearchProductsFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: ./catalog/search-products
+      Environment:
+        Variables:
+          CATALOG_DB_DOMAIN: !GetAtt CatalogDB.DomainEndpoint
+      Events:
+        SearchProducts:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            RestApiId: !Ref Api
+            Path: /catalog # No need to specify query parameters, unless you want to make them required
+            Method: GET
+            Auth:
+              Authorizer: NONE # This endpoint does not require the user to be authenticated
+      Policies:
+        - ElasticsearchHttpPostPolicy: # More info about this policy: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-policy-template-list.html#elastic-search-http-post-policy
+            DomainName: "catalog-db"
+
+  GetCopyFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: ./localization/get-copy
+      Environment:
+        Variables:
+          LOCALIZATION_BUCKET: !Ref LocalizationBucket
+      Events:
+        GetCopy:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            RestApiId: !Ref Api
+            Path: /localization
+            Method: GET
+            Auth:
+              Authorizer: NONE # This endpoint does not require the user to be authenticated
+      Policies:
+        - S3ReadPolicy: # More info about this policy: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-policy-template-list.html#s3-read-policy
+            BucketName: !Ref LocalizationBucket
+
+  AddToCartFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: ./cart/add-to-cart
+      Events:
+        AddToCart:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            RestApiId: !Ref Api
+            Path: /cart/{id}
+            Method: POST # We could define a 'Product' model and use it to validate the body: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-requestmodel.html
+      Policies:
+        - DynamoDBCrudPolicy: # More info about this policy: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-policy-template-list.html#dynamo-db-crud-policy
+            TableName: !Ref CartDb
+
+  GetCartFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: ./cart/get-cart
+      Events:
+        GetCart:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            RestApiId: !Ref Api
+            Path: /cart
+            Method: GET
+      Policies:
+        - DynamoDBCrudPolicy: # More info about this policy: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-policy-template-list.html#dynamo-db-crud-policy
+            TableName: !Ref CartDb
+
+  DeleteCartFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: ./cart/delete-cart
+      Events:
+        DeleteCart:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            RestApiId: !Ref Api
+            Path: /cart
+            Method: DELETE
+      Policies:
+        - DynamoDBCrudPolicy: # More info about this policy: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-policy-template-list.html#dynamo-db-crud-policy
+            TableName: !Ref CartDb
+
+  RemoveFromCartFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: ./cart/remove-from-cart
+      Events:
+        RemoveFromCart:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            RestApiId: !Ref Api
+            Path: /cart/{id}
+            Method: PUT
+      Policies:
+        - DynamoDBCrudPolicy: # More info about this policy: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-policy-template-list.html#dynamo-db-crud-policy
+            TableName: !Ref CartDb
+
+  CatalogDB:
+    Type: AWS::Elasticsearch::Domain
+    Properties:
+      DomainName: "catalog-db"
+      ElasticsearchVersion: "7.10"
+      ElasticsearchClusterConfig:
+        DedicatedMasterEnabled: false
+        InstanceCount: "1"
+        ZoneAwarenessEnabled: false
+        InstanceType: "t2.small.elasticsearch"
+      EBSOptions:
+        EBSEnabled: true # Elastic Block Store (provides block level storage volumes for use with EC2 instances)
+        VolumeSize: "10" # Storage size per node (minimum 10GiB)
+        VolumeType: "gp2" # General Purpose SSD
+
+  CartDb:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: "cart-db"
+      AttributeDefinitions:
+        -
+          AttributeName: "username"
+          AttributeType: "S"
+        -
+          AttributeName: "product_id"
+          AttributeType: "S"
+      KeySchema:
+        -
+          AttributeName: "username"
+          KeyType: "HASH"
+        -
+          AttributeName: "product_id"
+          KeyType: "RANGE"
+      ProvisionedThroughput:
+        ReadCapacityUnits: "5"
+        WriteCapacityUnits: "5"
+
+  LocalizationBucket:
+    Type: AWS::S3::Bucket
+
+  CognitoUserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: "bshop-users"
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 8
+      UsernameAttributes:
+        - email
+      Schema:
+        - AttributeDataType: String
+          Name: email
+          Required: false
+
+  CognitoUserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      UserPoolId: !Ref CognitoUserPool
+      ClientName: "bshop-app"
+      GenerateSecret: false
+
+  ApiKey:
+    Type: AWS::ApiGateway::ApiKey
+    DependsOn:
+      - ApiUsagePlan
+    Properties:
+      Name: "bshop-apikey"
+      Description: "CloudFormation API Key V1"
+      Enabled: true
+      GenerateDistinctId: false
+      StageKeys:
+        - RestApiId: !Ref Api
+          StageName: prod
+
+  ApiUsagePlan:
+    Type: AWS::ApiGateway::UsagePlan
+    Properties:
+      ApiStages:
+        - ApiId: !Ref Api
+          Stage: prod
+      Quota:
+        Limit: 1000
+        Period: MONTH
+      UsagePlanName: "bshop-usage-plan"
+
+  ApiUsagePlanKey:
+    Type: AWS::ApiGateway::UsagePlanKey
+    Properties:
+      KeyId: !Ref ApiKey
+      KeyType: API_KEY
+      UsagePlanId: !Ref ApiUsagePlan

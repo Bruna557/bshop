@@ -5,8 +5,8 @@ const { SignatureV4 } = require('@aws-sdk/signature-v4')
 const { NodeHttpHandler } = require('@aws-sdk/node-http-handler')
 const { Sha256 } = require('@aws-crypto/sha256-browser')
 
-const region = 'us-east-1'
-const domain = 'search-catalog-db-kzo4u3d3hywf53mehgc2zvdhku.us-east-1.es.amazonaws.com'
+const REGION = process.env.AWS_REGION
+const CATALOG_DB_DOMAIN = process.env.CATALOG_DB_DOMAIN
 
 const data = readFileSync('./data/products.bulk')
 bulkInsert(data.toString()).then(() => process.exit())
@@ -16,16 +16,16 @@ async function bulkInsert(data) {
         body: data,
         headers: {
             'Content-Type': 'application/json',
-            'host': domain
+            'host': CATALOG_DB_DOMAIN
         },
-        hostname: domain,
+        hostname: CATALOG_DB_DOMAIN,
         method: 'POST',
         path: '/_bulk'
     })
 
     const signer = new SignatureV4({
         credentials: defaultProvider(),
-        region: region,
+        region: REGION,
         service: 'es',
         sha256: Sha256
     })

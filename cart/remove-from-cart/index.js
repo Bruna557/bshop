@@ -1,8 +1,8 @@
 // DOCUMENTATION: https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html
 const { DynamoDB, DeleteItemCommand } = require('@aws-sdk/client-dynamodb')
 
-const region = 'us-east-1'
-const db = new DynamoDB({ 'region': region })
+const REGION = process.env.AWS_REGION
+const db = new DynamoDB({ 'region': REGION })
 
 exports.handler = (event, context, callback) => {
     console.log('Received RemoveFromCart request', event)
@@ -30,7 +30,7 @@ exports.handler = (event, context, callback) => {
 
 function removeFromCart(user, product_id) {
     var params = {
-        TableName: "cart",
+        TableName: "cart-db",
         Key: {
          "username": { S: user },
          "product_id": { S: product_id }
