@@ -33,3 +33,9 @@
 .buy-btn {
     margin-top: 25px;
 }
+
+.empty-cart {
+    text-align: center;
+    font-size: 16px;
+    margin-top: 40px;
+}

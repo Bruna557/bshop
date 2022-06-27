@@ -34,7 +34,7 @@ const Grid = () => {
 
     return (
         <>
-            {(!products || products.length === 0) ? <p className='no-results'>{copy.no_results}</p> :
+            {(!products || products.length === 0) ? <div className='no-results'>{copy.no_results}</div> :
                 <>
                     <Row  xs={1} sm={2} md={4} lg={4}>
                         {products.map((product, i) => (

@@ -38,7 +38,7 @@ const Cart = () => {
 
     return (
         <>
-            {(!isLoggedIn && cart.length === 0) ? <h1>{copy.cart_empty}</h1> :
+            {(!isLoggedIn && cart.length === 0) ? <div className='empty-cart'>{copy.cart_empty}</div> :
                 <Row xs={1} md={2}>
                     <Col>
                         <h5>{copy.cart}</h5>

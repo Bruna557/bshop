@@ -7,6 +7,8 @@ import { getCopy } from '../../store/localizationSlice'
 import { login } from '../../services/mocks/userService'
 import { setIsLoggedIn } from '../../store/userSlice'
 
+import './Login.css'
+
 const Login = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -53,7 +55,7 @@ const Login = () => {
                             onChange={(event) => setPassword(event.target.value)}
                         />
                     </div>
-                    <button type='submit' className='btn btn-primary'>
+                    <button type='submit' className='btn btn-primary sign-in-btn'>
                         {copy.sign_in}
                     </button>
                     </form>
