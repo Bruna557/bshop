@@ -21,11 +21,13 @@ export const fetchProductsThunk = createAsyncThunk('products/get', async (page =
     const q = thunkApi.getState().product.search
     fetchProducts(page, PAGE_SIZE, q)
         .then(data => {
-            thunkApi.dispatch(updateProducts({
-                products: data.products,
-                currentPage: page,
-                numberOfPages: Math.ceil(data.total/PAGE_SIZE)
-            }))
+            if (data) {
+                thunkApi.dispatch(updateProducts({
+                    products: data.products,
+                    currentPage: page,
+                    numberOfPages: Math.ceil(data.total/PAGE_SIZE)
+                }))
+            }
         })
 })
 

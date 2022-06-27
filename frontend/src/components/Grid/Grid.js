@@ -39,7 +39,7 @@ const Grid = () => {
                     <Row  xs={1} sm={2} md={4} lg={4}>
                         {products.map((product, i) => (
                             <Col key={i}>
-                                <Card>
+                                <Card className='product'>
                                     <Card.Img variant='top' src={product.image_url} alt='product' />
                                     <Card.Title>{product.name}</Card.Title>
                                     <Card.Body>
@@ -58,13 +58,11 @@ const Grid = () => {
                             </Col>
                         ))}
                     </Row>
-                    <Row>
-                        <Pagination>
-                            {currentPage > 1 && <Pagination.Prev onClick={previousPage}/>}
-                            <Pagination.Item>{currentPage}</Pagination.Item>
-                            {currentPage < numberOfPages && <Pagination.Next onClick={nextPage}/>}
-                        </Pagination>
-                    </Row>
+                    <Pagination>
+                        {currentPage > 1 && <Pagination.Prev onClick={previousPage}/>}
+                        <Pagination.Item>{currentPage}</Pagination.Item>
+                        {currentPage < numberOfPages && <Pagination.Next onClick={nextPage}/>}
+                    </Pagination>
                 </>
             }
         </>

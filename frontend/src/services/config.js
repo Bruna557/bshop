@@ -1,6 +1,8 @@
-export const API_GATEWAY_URL = 'https://aft1wr9kx9.execute-api.us-east-1.amazonaws.com/test'
+export const API_GATEWAY_URL = process.env.REACT_APP_API_GATEWAY_URL
+
+export const API_KEY = process.env.REACT_APP_API_KEY
 
 export const COGNITO_USER_POOL = {
-  UserPoolId : 'us-east-1_VFQMeycgA',
-  ClientId : '30vuuve6lcj5568gr979v32f7'
+  UserPoolId : process.env.REACT_APP_COGNITO_POOL_ID,
+  ClientId : process.env.REACT_APP_COGNITO_CLIENT_ID
 }

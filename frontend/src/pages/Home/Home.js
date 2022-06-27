@@ -11,7 +11,7 @@ const Home = () => {
 
     useEffect(() => {
         dispatch(setSearchAndFetchProductsThunk(''))  // Clear search text and fetch first page
-    }, [])
+    }, [dispatch])  // 'dispatch' was only included here to avoid a lint warning
 
     return (
         <>

@@ -36,16 +36,16 @@ The frontend is a Single-Page Application developed with React:
 The website is localized in English and Portuguese and copy is stored in JSON files in a S3 bucket.
 
 I may implement the following features/improvments:
-[ ] Implement recommendation service
-[ ] Implement quantity in cart items
-[ ] Do not return total hits when searching products
-[ ] Get product by id from the backend when it's not in products array
-[ ] Refresh token if expired
-[ ] Add unit tests
-[ ] Add lambda layer to reduce code duplication
+- [ ] Implement recommendation service
+- [ ] Implement quantity in cart items
+- [ ] Do not return total hits when searching products
+- [ ] Get product by id from the backend when it's not in products array
+- [ ] Refresh token if expired
+- [ ] Add unit tests
+- [ ] Add lambda layer to reduce code duplication
 
 ## Deploy via SAM CLI
-Install (SAM CLI}[https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html] (no need to install docker). Export your AWS credentials:
+Install [SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html) (no need to install docker). Export your AWS credentials:
 ```bash
 $ export AWS_ACCESS_KEY_ID=<YOUR-ACCESS-KEY-ID>
 $ export AWS_SECRET_ACCESS_KEY=<YOUR-SECRET-KEY>
@@ -61,7 +61,7 @@ $ sam deploy --guided
 In the S3 bucket created by SAM, create a folder named `localization` and upload the files from `localization/data`.
 
 ### Load CatalogDb
-In `catalog/scripts/data/products.bulk` there are 47 products, including headsets, keyboards, mouses, laptops, TVs and office chairs. All the images are free icons from (Flaticon)[https://www.flaticon.com].
+In `catalog/scripts/data/products.bulk` there are 47 products, including headsets, keyboards, mouses, laptops, TVs and office chairs. All the images are free icons from [Flaticon](https://www.flaticon.com).
 
 To add those products to CatalogDB, export the required environment variables and run the load-db script (also need to export AWS credentials):
 ```bash
@@ -189,7 +189,7 @@ localization | GET         | get-copy
 
 On the left panel, click "Authorizers" and create a new authorizer of type "Cognito", token source "Authorization" and attach your Cognito user pool.
 
-Edit all your cart methods (under "Resources" click on the method and then click "Method Request") to add authorization. Also edit the `POST /cart` method to add request body with content type `application/json` and edit the `GET /catalog` method to add query string parameters `size`, `page` and `q`.
+Edit all your cart methods (under "Resources" click on the method and then click "Method Request") to add authorization. You can also edit the `POST /cart/{id}` method to add request body with content type `application/json` and edit the `GET /catalog` method to add query string parameters `size`, `page` and `q`.
 
 Deploy your API (Actions -> Deploy API)
 
@@ -237,4 +237,10 @@ $ curl '<API_GATEWAY_URL>/localization?lang=pt' -H "x-api-key: <API_KEY>"
 ```
 
 ## Testing the frontend
-It is possible to test the frontend using mocked services (no need to deploy the lambda functions or create any other resources). In order to do so, substitute every occurence of `services/` for `services/mocks/` and run the application with `npm start`.
+Run the react app with `npm start` passing the required environment variables:
+```bash
+$ cd frontend
+$ REACT_APP_API_GATEWAY_URL=<API_GATEWAY_URL> REACT_APP_API_KEY=<API_KEY> REACT_APP_COGNITO_POOL_ID=<COGNITO_POOL_ID> REACT_APP_COGNITO_CLIENT_ID=<COGNITO_CLIENT_ID> npm start
+```
+
+You can also test the frontend using mocked services (no need to deploy the lambda functions or create any other resources). In order to do so, substitute every occurence of `services/mocks/` for `services/mocks/mocks/` and run the application with `npm start`.

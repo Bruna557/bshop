@@ -29,8 +29,10 @@ const Cart = () => {
     const getCart = () => {
         fetchCart()
             .then((data) => {
-                setCart(data)
-                setTotalPrice(data.reduce((sum, product) => sum + parseFloat(product.price), 0))
+                if (data) {
+                    setCart(data)
+                    setTotalPrice(data.reduce((sum, product) => sum + parseFloat(product.price), 0))
+                }
             })
     }
 

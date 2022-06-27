@@ -1,11 +1,19 @@
+.card {
+    align-items: center;
+}
+
 .card .card-title {
-    text-align: center;
     margin-top: 8px;
     font-weight: bold;
 }
 
 .card-body {
     text-align: center;
+    padding: 0 0 1rem !important;
+}
+
+.card-img-top {
+    width: 130px !important;
 }
 
 .card-text {
@@ -19,11 +27,15 @@
     margin: 10px 10px 0;
 }
 
-.card-img, .card-img-top {
-    height: 200px;
-}
-
 .no-results {
     text-align: center;
     margin-top: 40px;
+}
+
+.product {
+    margin-bottom: 20px;
+}
+
+.pagination {
+    justify-content: center;
 }

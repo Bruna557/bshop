@@ -1,11 +1,19 @@
-import { API_GATEWAY_URL } from './config'
+import { API_GATEWAY_URL, API_KEY } from './config'
+
+const BASE_URL = `${API_GATEWAY_URL}/catalog`
+const HEADERS = {
+    'x-api-key': API_KEY
+}
 
 export const fetchProducts = async (page, size, q = null) => {
-    let url = `${API_GATEWAY_URL}/catalog?page=${page}&size=${size}`
+    let url = `${BASE_URL}?page=${page}&size=${size}`
     if (q) {
         url += `&q=${q}`
     }
-    return fetch(url, { method: 'GET' })
+    return fetch(url, {
+        method: 'GET',
+        headers: HEADERS
+    })
         .then(response => response.json())
         .then(data => {
             return {
