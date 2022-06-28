@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { updateProducts, setSearch } from './productSlice'
-import { fetchProducts } from '../services/mocks/productService'
+import { fetchProducts } from '../services/productService'
 
 const PAGE_SIZE = 10
 

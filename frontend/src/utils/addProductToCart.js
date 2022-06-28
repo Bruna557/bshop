@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify'
 
-import { addToCart } from '../services/mocks/cartService'
+import { addToCart } from '../services/cartService'
 
 export const addProductToCart = (product, isLoggedIn, copy, navigate) => {
   if (isLoggedIn) {

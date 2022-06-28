@@ -22,13 +22,13 @@ const ProductDetail = () => {
 
     return (
         <>
-            {(!product || !product.id) ? <h1>{copy.something_went_wrong}</h1> :
+            {(!product || !product.id) ? <div className='error-msg'>{copy.something_went_wrong}</div> :
                 <Row className='product-detail'>
+                    <h1 className='name'>{product.name}</h1>
                     <Col xs={12} md={3} lg={3}>
                         <img src={product.image_url} alt='product'></img>
                     </Col>
-                    <Col xs={12} md={9} lg={9}>
-                        <h1 className='name'>{product.name}</h1>
+                    <Col className='description' xs={12} md={9} lg={9}>
                         <div>{product.description}</div>
                         {product.rating && <Rating rating={product.rating} />}
                         <div className='price'>${product.price}</div>

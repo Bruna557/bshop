@@ -7,7 +7,7 @@ const s3Client = new S3Client({ region: REGION })
 exports.handler = (event, context, callback) => {
     console.log('Received GetCopy request', event)
 
-    const language = event.queryStringParameters?.language || 'en'
+    const language = event.queryStringParameters?.lang || 'en'
 
     getCopy(language).then((copy) => {
         callback(null, {

@@ -6,6 +6,8 @@ import { getCopy } from '../../store/localizationSlice'
 import { setSearchAndFetchProductsThunk } from '../../store/productThunks'
 import Grid from '../../components/Grid/Grid'
 
+import './SearchResult.css'
+
 const SearchResult = () => {
     const dispatch = useDispatch()
     const location = useLocation()
@@ -20,7 +22,7 @@ const SearchResult = () => {
 
     return (
         <>
-            {q && <h1>{`${copy.you_searched}: ${q}`}</h1>}
+            {q && <p className='title'>{`${copy.you_searched}: ${q}`}</p>}
             <Grid />
         </>
     )

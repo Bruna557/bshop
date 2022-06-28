@@ -1,5 +1,11 @@
+.title {
+    text-align: center;
+}
+
 .cart-item {
     padding: 25px;
+    display: flex;
+    align-items: center;
 }
 
 .cart-item .item-name {
@@ -39,3 +45,14 @@
     font-size: 16px;
     margin-top: 40px;
 }
+
+/* Mobile */
+@media screen and (max-width: 450px) {
+    .cart-item .item-name {
+        font-size: 15px;
+    }
+
+    .cart-item {
+        padding: 25px 0;
+    }
+ }

@@ -18,6 +18,7 @@ export const login = async (username, password) => {
         cognitoUser.authenticateUser(authenticationDetails, {
             onSuccess: function (result) {
                 localStorage.setItem('token', result.getIdToken().getJwtToken())
+                console.log(localStorage.getItem('token'))
                 resolve(true)
             },
             onFailure: function(err) {

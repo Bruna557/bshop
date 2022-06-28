@@ -5,7 +5,7 @@ import { Navbar, Container, NavDropdown, Nav, Form, Button } from 'react-bootstr
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart, faSearch, faUser, faSignIn } from '@fortawesome/free-solid-svg-icons'
 
-import { logout } from '../../services/mocks/userService'
+import { logout } from '../../services/userService'
 import { getIsLoggedIn, setIsLoggedIn } from '../../store/userSlice'
 import { getCopy, getLanguage } from '../../store/localizationSlice'
 import { fetchCopyThunk } from '../../store/localizationThunks'
@@ -27,10 +27,6 @@ const Navigation = () => {
         navigate(path)
     }
 
-    const signIn = () => {
-        navigate('/login')
-    }
-
     const signOut = () => {
         logout()
         dispatch(setIsLoggedIn(false))
@@ -38,16 +34,16 @@ const Navigation = () => {
 
     return (
         <>
-            <Navbar collapseOnSelect expand="md" bg="dark" variant="dark" fixed="top">
+            <Navbar collapseOnSelect expand='md' bg='dark' variant='dark' fixed='top'>
                 <Container>
                     <Navbar.Brand>
                         <Link to='/'>
                             <img src='/assets/logo-name.png' alt='logo-name'></img>
                         </Link>
                     </Navbar.Brand>
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                    <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav className="mx-auto">
+                    <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+                    <Navbar.Collapse id='responsive-navbar-nav'>
+                        <Nav className='mx-auto'>
                             <Form className='d-flex ptb5' onSubmit={search}>
                                 <Form.Control
                                     type='text'
@@ -67,13 +63,14 @@ const Navigation = () => {
                             <Link to='/cart' id='cart'>
                                 <FontAwesomeIcon icon={faShoppingCart} size='lg' />
                             </Link>
-                            {isLoggedIn && <NavDropdown title={<FontAwesomeIcon icon={faUser} size='lg' />} id='account' align='end'>
-                                <NavDropdown.Item onClick={signOut}>{copy.sign_out}</NavDropdown.Item>
-                            </NavDropdown>}
+                            {isLoggedIn &&
+                                <NavDropdown title={<FontAwesomeIcon icon={faUser} size='lg' />} id='account' align='end'>
+                                    <NavDropdown.Item onClick={signOut}>{copy.sign_out}</NavDropdown.Item>
+                                </NavDropdown>}
                             {!isLoggedIn &&
-                            <Button variant='dark' onClick={signIn}>
-                                {<FontAwesomeIcon icon={faSignIn} size='lg' />}
-                            </Button>}
+                                <Link to='/login' id='login'>
+                                    <FontAwesomeIcon icon={faSignIn} size='lg' id='login-icon' />
+                                </Link>}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

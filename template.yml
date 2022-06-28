@@ -12,11 +12,11 @@ Resources:
     Properties:
       StageName: prod
       Cors:
-        AllowHeaders: "'Content-Type, Authorization'"
+        AllowHeaders: "'Content-Type, Authorization, x-api-key'"
         AllowOrigin: "'*'"
       Auth:
-        ApiKeyRequired: true
         DefaultAuthorizer: CognitoAuthorizer
+        AddDefaultAuthorizerToCorsPreflight: false
         Authorizers:
           CognitoAuthorizer:
             UserPoolArn: !GetAtt CognitoUserPool.Arn
@@ -36,6 +36,7 @@ Resources:
             Path: /catalog # No need to specify query parameters, unless you want to make them required
             Method: GET
             Auth:
+              ApiKeyRequired: true # Have to add this to every event otherwise even OPTION requests will require key
               Authorizer: NONE # This endpoint does not require the user to be authenticated
       Policies:
         - ElasticsearchHttpPostPolicy: # More info about this policy: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-policy-template-list.html#elastic-search-http-post-policy
@@ -56,6 +57,7 @@ Resources:
             Path: /localization
             Method: GET
             Auth:
+              ApiKeyRequired: true # Have to add this to every event otherwise even OPTION requests will require key
               Authorizer: NONE # This endpoint does not require the user to be authenticated
       Policies:
         - S3ReadPolicy: # More info about this policy: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-policy-template-list.html#s3-read-policy
@@ -72,6 +74,8 @@ Resources:
             RestApiId: !Ref Api
             Path: /cart/{id}
             Method: POST # We could define a 'Product' model and use it to validate the body: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-requestmodel.html
+            Auth:
+              ApiKeyRequired: true # Have to add this to every event otherwise even OPTION requests will require key
       Policies:
         - DynamoDBCrudPolicy: # More info about this policy: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-policy-template-list.html#dynamo-db-crud-policy
             TableName: !Ref CartDb
@@ -87,6 +91,8 @@ Resources:
             RestApiId: !Ref Api
             Path: /cart
             Method: GET
+            Auth:
+              ApiKeyRequired: true # Have to add this to every event otherwise even OPTION requests will require key
       Policies:
         - DynamoDBCrudPolicy: # More info about this policy: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-policy-template-list.html#dynamo-db-crud-policy
             TableName: !Ref CartDb
@@ -102,6 +108,8 @@ Resources:
             RestApiId: !Ref Api
             Path: /cart
             Method: DELETE
+            Auth:
+              ApiKeyRequired: true # Have to add this to every event otherwise even OPTION requests will require key
       Policies:
         - DynamoDBCrudPolicy: # More info about this policy: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-policy-template-list.html#dynamo-db-crud-policy
             TableName: !Ref CartDb
@@ -117,6 +125,8 @@ Resources:
             RestApiId: !Ref Api
             Path: /cart/{id}
             Method: PUT
+            Auth:
+              ApiKeyRequired: true # Have to add this to every event otherwise even OPTION requests will require key
       Policies:
         - DynamoDBCrudPolicy: # More info about this policy: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-policy-template-list.html#dynamo-db-crud-policy
             TableName: !Ref CartDb

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 
 import { getCopy } from '../../store/localizationSlice'
-import { login } from '../../services/mocks/userService'
+import { login } from '../../services/userService'
 import { setIsLoggedIn } from '../../store/userSlice'
 
 import './Login.css'

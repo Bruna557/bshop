@@ -7,7 +7,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import Rating from '../../components/Rating/Rating'
 import { getCopy } from '../../store/localizationSlice'
 import { getIsLoggedIn } from '../../store/userSlice'
-import { fetchCart, removeFromCart } from '../../services/mocks/cartService'
+import { fetchCart, removeFromCart } from '../../services/cartService'
 
 import './Cart.css'
 
@@ -41,7 +41,7 @@ const Cart = () => {
             {(!isLoggedIn && cart.length === 0) ? <div className='empty-cart'>{copy.cart_empty}</div> :
                 <Row xs={1} md={2}>
                     <Col>
-                        <h5>{copy.cart}</h5>
+                        <h5 className='title'>{copy.cart}</h5>
                         {cart.map((product, i) => (
                             <Row key={i} className='cart-item'>
                                 <Col>

@@ -243,4 +243,4 @@ $ cd frontend
 $ REACT_APP_API_GATEWAY_URL=<API_GATEWAY_URL> REACT_APP_API_KEY=<API_KEY> REACT_APP_COGNITO_POOL_ID=<COGNITO_POOL_ID> REACT_APP_COGNITO_CLIENT_ID=<COGNITO_CLIENT_ID> npm start
 ```
 
-You can also test the frontend using mocked services (no need to deploy the lambda functions or create any other resources). In order to do so, substitute every occurence of `services/mocks/` for `services/mocks/mocks/` and run the application with `npm start`.
+You can also test the frontend using mocked services (no need to deploy the lambda functions or create any other resources). In order to do so, substitute every occurence of `services/` for `services/mocks/` and run the application with `npm start`.

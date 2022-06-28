@@ -2,11 +2,15 @@
     min-height: 67px;
 }
 
-.navbar a#cart {
+.navbar a#cart, a#login {
     color: rgba(255,255,255,.55);
     display: block;
     padding: .5rem 1rem 0 0;
     text-decoration: none;
+}
+
+.fa-lg#login-icon {
+    height: 1.2em;
 }
 
 .navbar #language img {

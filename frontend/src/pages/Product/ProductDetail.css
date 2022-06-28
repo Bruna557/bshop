@@ -1,9 +1,10 @@
 .product-detail {
     font-size: 16px;
+    display: flex;
 }
 
 .product-detail img {
-    width: 100%;
+    width: 90%;
     margin-bottom: 10px;
 }
 
@@ -18,4 +19,14 @@
 
 .product-detail .btn {
     margin: 20px 20px 0 0;
+}
+
+.error-msg {
+    text-align: center;
+    font-size: 16px;
+    margin-top: 40px;
+}
+
+.description {
+    align-self: center;
 }

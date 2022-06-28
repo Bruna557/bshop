@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { setLanguage } from './localizationSlice'
-import { fetchCopy } from '../services/mocks/localizationService'
+import { fetchCopy } from '../services/localizationService'
 
 /*
  * Thunk functions are middlewares that intercept actions before they reach a reducer.
