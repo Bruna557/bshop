@@ -71,6 +71,9 @@ $ cd catalog/scripts
 $ node load-db.js
 ```
 
+## Frontend deploy with Amplify
+Go to AWS Amplify and click "Get started" in "Amplify Hosting". Select github, log in and select your repo and branch; check "Connecting a monorepo? Pick a folder." and as root directory enter "frontend". In "Configure build settings" go to "Advanced settings" and add add the following environment variables: REACT_APP_API_GATEWAY_URL, REACT_APP_API_KEY, REACT_APP_COGNITO_POOL_ID and REACT_APP_COGNITO_CLIENT_ID. You can keep the default building config, save and deploy.
+
 ---
 In the following sections I added instructions for local testing and manual deployment to serve as a guide to my future self and anyone learning about serverless development.
 
